@@ -1,0 +1,78 @@
+.main {
+  height: 100vh !important;
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  background: #153a30;
+}
+
+
+.right-section {
+  flex: 1 1 auto;
+  height: 100%;
+  min-width: 100px;
+  display: flex;
+  flex-flow: column;
+  float: right;
+}
+
+.left-section {
+  flex: 0 1 auto;
+  float: left;
+  height: 100%;
+  min-width: 225px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+  position: relative;
+  z-index:10
+}
+
+.content {
+  flex: 1 1 auto;
+  padding: 10px;
+  margin: 0px 0 0px 10px;
+  float: right;
+  overflow: auto !important;
+  border-radius: 3px;
+}
+
+.content::-webkit-scrollbar {
+  width: 4px !important;
+  border-radius: 4px !important;
+}
+.content::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 2px !important;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 2px !important;
+}
+
+.collapse-toggle-button {
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  background: linear-gradient(50deg, rgb(6, 149, 102) 15%, #00ede1);
+  border-radius: 50%;
+  top: 55px;
+  right: -8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 2px rgba(0, 0, 0, 0.15),
+    0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.15);
+
+  color: rgba(255, 255, 255, 0.842) !important;
+  font-size: 0.7rem;
+  z-index: 100;
+}
+
+.collapse-toggle-button:hover {
+  cursor: pointer;
+  background: linear-gradient(45deg, rgb(3, 146, 122), #00e5ed);
+}
+
+.collapse-toggle-button:active {
+  cursor: pointer;
+  box-shadow: none;
+}
