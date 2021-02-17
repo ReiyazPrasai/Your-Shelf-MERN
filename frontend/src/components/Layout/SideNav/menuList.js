@@ -16,7 +16,7 @@ const menuList = [
   {
     label: "Dashboard",
     icon: (
-      <div className="menu-icon-wrapper" style={{ background: "#488FFF" }}>
+      <div className="menu-icon-wrapper" style={{ background: "#2c15ad" }}>
         <FontAwesomeIcon icon={faTachometerAlt} />
       </div>
     ),
@@ -26,7 +26,7 @@ const menuList = [
   {
     label: "My Collection",
     icon: (
-      <div className="menu-icon-wrapper" style={{ background: "#8A67B7" }}>
+      <div className="menu-icon-wrapper" style={{ background: "#F63702" }}>
         <FontAwesomeIcon icon={faDatabase} />
       </div>
     ),
@@ -54,7 +54,7 @@ const menuList = [
   {
     label: "Features",
     icon: (
-      <div className="menu-icon-wrapper" style={{ background: "#CA8E4D" }}>
+      <div className="menu-icon-wrapper" style={{ background: "#15ada0" }}>
         <FontAwesomeIcon icon={faThList} />
       </div>
     ),
@@ -65,7 +65,7 @@ const menuList = [
       {
         label: "Brands",
         icon: (
-          <div className="menu-icon-wrapper" style={{ background: "#C94D84" }}>
+          <div className="menu-icon-wrapper" style={{ background: "#ad157f" }}>
             <FontAwesomeIcon icon={faTag} />
           </div>
         ),
@@ -75,7 +75,7 @@ const menuList = [
       {
         label: "Category",
         icon: (
-          <div className="menu-icon-wrapper" style={{ background: "#9F584A" }}>
+          <div className="menu-icon-wrapper" style={{ background: "#ad7815" }}>
             <FontAwesomeIcon icon={faObjectGroup} />
           </div>
         ),
@@ -85,7 +85,7 @@ const menuList = [
       {
         label: "Attributes",
         icon: (
-          <div className="menu-icon-wrapper" style={{ background: "#ffde4c" }}>
+          <div className="menu-icon-wrapper" style={{ background: "#ad1f15" }}>
             <FontAwesomeIcon icon={faFileAlt} />
           </div>
         ),
@@ -97,7 +97,7 @@ const menuList = [
   {
     label: "Stores",
     icon: (
-      <div className="menu-icon-wrapper" style={{ background: "#15AD90" }}>
+      <div className="menu-icon-wrapper" style={{ background: "#8215ad" }}>
         <FontAwesomeIcon icon={faStore} />
       </div>
     ),
@@ -108,7 +108,7 @@ const menuList = [
       {
         label: "Manage",
         icon: (
-          <div className="menu-icon-wrapper" style={{ background: "#ff4c6a" }}>
+          <div className="menu-icon-wrapper" style={{ background: "#5ead15" }}>
             <FontAwesomeIcon icon={faPencilRuler} />
           </div>
         ),
@@ -118,7 +118,7 @@ const menuList = [
       {
         label: "Orders",
         icon: (
-          <div className="menu-icon-wrapper" style={{ background: "#ff704c" }}>
+          <div className="menu-icon-wrapper" style={{ background: "#15AD90" }}>
             <FontAwesomeIcon icon={faDollarSign} />
           </div>
         ),

@@ -34,7 +34,7 @@ const MainAddForm = (props) => {
         <Card
           onSave={handleSubmit}
           onCancel={handelCancel}
-          to="/categories"
+          to="/features/categories"
           status
           isActive={true}
           style={{ width: "500px", padding: 20, margin: '20px auto' }}

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Table, Row, Col } from "antd";
 
 import { Input, Switch, Button } from "../Common/Elements";
-import SubListTop from "./SubListTop";
-import { components, getColumns } from "../Common/EditableCell.js";
+import SubCategoryListTop from "./SubCategoryListTop";
+import { components, getColumns } from "../Common/EditableCell.js/index.js";
 
 const ExpandedRowRender = (props) => {
   const [sortedInfo, setSortedInfo] = useState({});
@@ -157,7 +157,7 @@ const ExpandedRowRender = (props) => {
   return (
     <div style={{ maxWidth: 1000, minWidth: 500, margin:'auto' }}>
       {subDataSource[record._id]?.[0]?._id !== "new" && (
-        <SubListTop
+        <SubCategoryListTop
           setListQuery={setListQuery}
           listQuery={listQuery}
           setData={setData}

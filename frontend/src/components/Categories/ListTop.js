@@ -88,7 +88,7 @@ const ListTop = (props) => {
         <Button
           style={{ float: "right", width: "100%" }}
           type="primary"
-          to="/categories/add"
+          to="/features/categories/add"
         >
           Add Category
         </Button>

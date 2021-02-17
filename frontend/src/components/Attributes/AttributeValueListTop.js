@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Col, Row } from "antd";
 
 import { listSearch } from "../../utils/commonUtils";
-import { getQuery } from "../../utils/commonUtils";
 import { Button, Input, Select } from "../Common/Elements";
 
-const SubListTop = (props) => {
+const AttributeValueListTop = (props) => {
   const [isSearched, setIsSearched] = useState(false);
 
   const activeStatus = [
@@ -81,4 +80,4 @@ const SubListTop = (props) => {
   );
 };
 
-export default SubListTop;
+export default AttributeValueListTop;

@@ -3,14 +3,14 @@ import {
   CloseCircleFilled,
   CheckCircleFilled,
   QuestionCircleFilled,
-  PlusSquareTwoTone,
-  MinusSquareTwoTone,
+  PlusSquareFilled,
+  MinusSquareFilled,
 } from "@ant-design/icons";
 import { Form, Table } from "antd";
 
 import { Card, Input, Switch } from "../Common/Elements";
 import ListTop from "./ListTop";
-import ExpandedRowRender from "./ExpandableRows";
+import ExpandedRowRender from "./SubCategoryList";
 import { useLocation } from "react-router";
 import { isEmpty } from "../../utils/commonUtils";
 import { components, getColumns } from "../Common/EditableCell.js";
@@ -105,7 +105,7 @@ const List = (props) => {
   const CustomExpandIcon = (localProps) => {
     if (localProps.expanded) {
       return (
-        <MinusSquareTwoTone
+        <MinusSquareFilled
           onClick={(e) => {
             setexpandedRowKeys([]);
             return localProps.onExpand(localProps.record, e);
@@ -114,7 +114,8 @@ const List = (props) => {
       );
     } else {
       return (
-        <PlusSquareTwoTone
+        <PlusSquareFilled
+        style={{background:"#10BC83", color: '#BFD5DF', border: 'none'}}
           onClick={(e) => {
             setexpandedRowKeys([localProps.record._id]);
             if (

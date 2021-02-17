@@ -10,7 +10,7 @@ import { Form, Table } from "antd";
 
 import { Card, Input, Switch } from "../Common/Elements";
 import ListTop from "./ListTop";
-import ExpandedRowRender from "./ExpandableRows";
+import AttributeValueList from "./AttributeValueListTop";
 import { components, getColumns } from "../Common/EditableCell.js";
 
 const List = (props) => {
@@ -240,7 +240,7 @@ const List = (props) => {
             bordered
             expandIcon={(p) => <CustomExpandIcon {...p} />}
             expandedRowRender={(rec) => (
-              <ExpandedRowRender
+              <AttributeValueList
                 record={rec}
                 {...props}
                 categoryDataSource={categoryDataSource}

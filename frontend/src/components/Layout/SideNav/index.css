@@ -68,15 +68,16 @@
 }
 
 .sub-menu-items {
-  background: rgba(22, 22, 22, 0.37);
+  background: rgba(22, 22, 22, 0.616);
   margin-top: 0;
+  
 }
 
 .menu-items:hover,
 .sub-menu-items:hover {
-  box-shadow: 0 1px 4px rgb(51, 179, 166, 0.5), 0 1px 4px rgb(51, 179, 166, 0.5),
-    0 1px 4px rgb(51, 179, 166, 0.5), 0 1px 4px rgb(51, 179, 166, 0.5);
-  transform: scaleY(1.1);
+  box-shadow: 0 1px 4px rgb(51, 179, 166, 0.5), 0 0px 2px rgb(51, 179, 166, 0.5),
+    0 0px 2px rgb(51, 179, 166, 0.5), 0 0px 2px rgb(51, 179, 166, 0.5);
+  transform: scaleY(1);
 }
 
 .menu-items:active,
@@ -108,35 +109,34 @@
   align-items: center;
   flex: 1 1 auto;
   font-size: 0.9rem;
-  padding-left: 18px;
+  padding-left: 16px;
 }
 .sub-menu-label {
   padding-left: 45px;
 }
 
 .compose {
-  color: #10BC83;
-  background: #202226;
+  color: white;
+  background: #10bc83;
   margin: 8px auto 13px;
   cursor: pointer;
-  font-weight: bold;
-  box-shadow: 0 0px 3px rgba(51, 179, 166, 0.5),
-    0 0px 3px rgba(51, 179, 166, 0.5), 0 0px 3px rgba(51, 179, 166, 0.5),
-    0 0px 3px rgba(51, 179, 166, 0.5);
-  border-radius: 30px;
+  /* font-weight: bold; */
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), 1px 1px 4px rgba(0, 0, 0, 0.4),
+    1px 2px 6px rgba(0, 0, 0, 0.3), 1px 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
   font-size: 1.1rem;
-  padding: 7px 14px 9px 14px;
+  padding: 7px 20px 9px 20px;
 }
 
 .compose:hover {
   color: white;
-  background: linear-gradient(50deg, rgb(6, 149, 102) 15%, #00ede1);
+  background: #159167;
 }
 
 .compose:active {
-  box-shadow: 0 0px 2px rgba(255, 255, 255, 0.12),
-    0 0px 2px rgba(255, 255, 255, 0.12), 0 0px 2px rgba(255, 255, 255, 0.12),
-    0 0px 2px rgba(255, 255, 255, 0.12);
+  background: #10bc83;
+
+  box-shadow: none;
   transform: scale(0.99);
 }
 

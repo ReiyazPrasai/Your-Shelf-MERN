@@ -34,11 +34,11 @@ const MenuItems = (props) => {
   const subMenuClass = (id) => (isSelected[1] === id ? "selected-menu" : "");
 
   const upDownArrow = (id) => (
-    <div className="sub-menu-arrow centralize">
+    <div className="sub-menu-arrow centralize" style={props.isCollapsed?{marginLeft: 8}:{}}>
       {subMenuShow[0] === true && subMenuShow[1] === id ? (
-        <CaretUpFilled style={{ fontSize: ".9rem" }} />
+        <CaretUpFilled style={{ fontSize: props.isCollapsed?".6rem":".9rem" }} />
       ) : (
-        <CaretDownFilled style={{ fontSize: ".9rem" }} />
+        <CaretDownFilled style={{ fontSize: props.isCollapsed?".6rem":".9rem" }} />
       )}
     </div>
   );
@@ -47,12 +47,12 @@ const MenuItems = (props) => {
     return (
       <div
         className={`menu-tooltip ${
-          isSubMenu ? subMenuClass(id) : menuClass(id, subMenu)
+          isSubMenu ? subMenuClass(id) : ""
         } ${isHovered === id ? tooltipClass : ""}`}
         style={{ position: "absolute" }}
       >
         <div className="menu-label" style={{ paddingLeft: "6px" }}>
-          {label}
+         {" "} {label}
         </div>
         {subMenu && upDownArrow(id)}
       </div>
@@ -89,7 +89,7 @@ const MenuItems = (props) => {
               >
                 <div
                   className="menu-label"
-                  style={subMenu ? { paddingLeft: 18 } : {}}
+                  style={subMenu ? { paddingLeft: 16 } : {}}
                 >
                   <span
                     style={{ width: 20, textAlign: "right", marginRight: 4 }}
@@ -97,10 +97,10 @@ const MenuItems = (props) => {
                     {icon}
                   </span>
                   {!props.isCollapsed && (
-                    <span style={{ marginLeft: 8 }}>{label}</span>
+                    <span style={{ marginLeft: 16 }}>{label}</span>
                   )}
                 </div>
-                {subMenu && !props.isCollapsed && upDownArrow(id)}
+                {subMenu && upDownArrow(id)}
                 {props.isCollapsed && toolTip(label, id, false, subMenu)}
               </div>
             </Link>
@@ -131,7 +131,7 @@ const MenuItems = (props) => {
                     >
                       <div
                         className="sub-menu-label"
-                        style={{ paddingLeft: props.isCollapsed ? 18 : 34 }}
+                        style={{ paddingLeft: props.isCollapsed ? 16 : 34 }}
                       >
                         <span
                           style={{

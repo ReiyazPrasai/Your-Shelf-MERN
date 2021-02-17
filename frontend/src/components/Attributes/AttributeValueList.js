@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Table, Row, Col, Tabs } from "antd";
-import { components, getColumns } from "../Common/EditableCell.js";
+import { components, getColumns } from "../Common/EditableCell.js/index.js";
 
 import { Input, Switch, Button } from "../Common/Elements";
-import SubListTop from "./SubListTop";
+import AttributeValueListTop from "./AttributeValueListTop";
 import CategoryList from "./CategoryList";
 import { isEmpty } from "../../utils/commonUtils.js";
 
 const { TabPane } = Tabs;
 
-const ExpandedRowRender = (props) => {
+const AttributeValueList = (props) => {
   const {
     setSubDataSource,
     subDataSource,
@@ -259,9 +259,9 @@ const ExpandedRowRender = (props) => {
       }}
     >
       <TabPane tab="Attribute Values" key="1">
-        <div style={{ maxWidth: 1000, minWidth: 500, margin:'auto' }}>
+        <div style={{ maxWidth: 1000, minWidth: 500, margin: "auto" }}>
           {subDataSource[record._id]?.[0]?._id !== "new" && (
-            <SubListTop
+            <AttributeValueListTop
               setDataSource={setDataSource}
               setListQuery={setListQuery}
               listQuery={listQuery}
@@ -407,4 +407,4 @@ const ExpandedRowRender = (props) => {
   );
 };
 
-export default ExpandedRowRender;
+export default AttributeValueList;
