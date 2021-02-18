@@ -15,7 +15,10 @@ export const ListContainer = (props) => {
 
   useEffect(() => {
     props.actions.headingRequest("Brands");
-  }, [props]);
+    return () => {
+      props.actions.reducerCleanRequest();
+    };
+  }, [props.actions]);
 
   useEffect(() => {
     if (!isCalled) {
@@ -28,6 +31,7 @@ export const ListContainer = (props) => {
     <List
       fetchBrandList={fetchBrandList}
       editBrand={brandService.editBrand}
+      deleteBrand={brandService.deleteBrand}
       {...props}
     />
   );

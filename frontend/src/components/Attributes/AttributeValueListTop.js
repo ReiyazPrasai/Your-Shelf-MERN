@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Col, Row } from "antd";
 
 import { listSearch } from "../../utils/commonUtils";
-import { Button, Input, Select } from "../Common/Elements";
+import { Input, SearchButton, Select } from "../Common/Elements";
 
 const AttributeValueListTop = (props) => {
   const [isSearched, setIsSearched] = useState(false);
@@ -15,30 +15,52 @@ const AttributeValueListTop = (props) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    listSearch(props.form, props.attributeList, props.setDataSource);
-    setIsSearched(true);
+    let isFields = [];
+    for (const key in props.form.getFieldsValue()) {
+      if (key.includes("_") && props.form.getFieldsValue()[key] !== undefined) {
+        isFields = [...isFields, true];
+      }
+    }
+    if (isFields.includes(true)) {
+      listSearch(props.form, props.attributeList, props.setDataSource);
+      setIsSearched(true);
+    }
+  };
+
+  const handleClearSearch = (e) => {
+    e.preventDefault();
+    props.form.resetFields();
+    props.setDataSource(props.attributeList);
+    setIsSearched(false);
   };
 
   return (
     <Row gutter={8}>
-      <Col
-        xxl={6}
-        xl={!isSearched ? 7 : 6}
-        lg={8}
-        md={8}
-        sm={!isSearched ? 24 : 12}
-        xs={24}
-      >
-        <Input name={`${props.expandedRowKey}_name`} label="Value" />
+      <Col xxl={8} xl={8} lg={8} md={12} sm={12} xs={24}>
+        <Input name={`${props.expandedRowKey}_name`} label="Attribute Value" />
       </Col>
 
-      <Col xxl={4} xl={!isSearched ? 5 : 4} lg={8} md={8} sm={12} xs={24}>
+      <Col
+        xxl={4}
+        xl={!isSearched ? 7 : 6}
+        lg={!isSearched ? 7 : 6}
+        md={12}
+        sm={12}
+        xs={24}
+      >
         <Input
           name={`${props.expandedRowKey}_abbreviation`}
           label="Abbreviation"
         />
       </Col>
-      <Col xxl={4} xl={!isSearched ? 5 : 4} lg={8} md={8} sm={12} xs={24}>
+      <Col
+        xxl={4}
+        xl={!isSearched ? 7 : 6}
+        lg={!isSearched ? 7 : 6}
+        md={12}
+        sm={12}
+        xs={24}
+      >
         <Select
           name={`${props.expandedRowKey}_isActive`}
           label="Active Status"
@@ -47,34 +69,33 @@ const AttributeValueListTop = (props) => {
           description={"description"}
         />
       </Col>
-      <Col xxl={3} xl={3} lg={8} md={8} sm={!isSearched ? 12 : 6} xs={12}>
-        <Button
-          style={{ color: "#10BC83", width: "100%" }}
-          onClick={handleSearch}
-        >
-          Search
-        </Button>
-      </Col>
       <Col
-        xxl={!isSearched ? 0 : 3}
-        xl={!isSearched ? 0 : 3}
-        lg={!isSearched ? 0 : 8}
-        md={!isSearched ? 0 : 8}
-        sm={!isSearched ? 0 : 6}
-        xs={!isSearched ? 0 : 12}
+        xxl={2}
+        xl={!isSearched ? 2 : 4}
+        lg={!isSearched ? 2 : 4}
+        md={4}
+        sm={5}
+        xs={24}
       >
-        {isSearched && (
-          <Button
-            style={{ color: "#10BC83", width: "100%" }}
-            onClick={() => {
-              props.form.resetFields();
-              props.setDataSource(props.attributeList);
-              setIsSearched(false);
-            }}
-          >
-            Clear Search
-          </Button>
-        )}
+        <Row gutter={8}>
+          <Col span={!isSearched ? 24 : 12}>
+            <SearchButton
+              style={{ color: "#10BC83", width: "100%" }}
+              onClick={handleSearch}
+              isSearch
+            >
+              Search
+            </SearchButton>
+          </Col>
+          {isSearched && (
+            <Col span={isSearched ? 12 : 0}>
+              <SearchButton
+                style={{ color: "#10BC83", width: "100%" }}
+                onClick={handleClearSearch}
+              />
+            </Col>
+          )}
+        </Row>
       </Col>
     </Row>
   );

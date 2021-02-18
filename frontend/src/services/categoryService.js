@@ -65,17 +65,9 @@ export const editSubCategory = (formData, identifier) => {
 };
 
 export const deleteCategory = (identifier) => {
-  return deleteData(`api/category/${identifier}`)
-    .then((res) => {
-      // !multiple &&
-      //   Notification(
-      //     "Success!",
-      //     `Contact has been deleted successfully!`,
-      //     "success"
-      //   )
-      // redirect && history.push(`/contacts/list`)
-    })
-    .catch((err) => {
-      // Notification("Error!", "Something went wrong!", "error")
-    });
+  return deleteData(`api/category/delete/${identifier}`);
+};
+
+export const deleteSubCategory = (identifier) => {
+  return deleteData(`api/category/sub/delete/${identifier}`);
 };

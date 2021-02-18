@@ -6,7 +6,7 @@ import {
   QuestionCircleFilled,
 } from "@ant-design/icons";
 
-import { Card, Input, Switch } from "../Common/Elements";
+import { Card, DeleteButton, Input, Switch } from "../Common/Elements";
 import { components, getColumns } from "../Common/EditableCell.js";
 import ListTop from "./ListTop";
 
@@ -197,6 +197,23 @@ const List = (props) => {
             }}
             initialValue={text}
           />
+        );
+      },
+    },
+    {
+      title: "Action",
+      width: 75,
+      render: (text, record) => {
+        return (
+          <div className="centralize">
+            <DeleteButton
+              onClick={() => {
+                props.deleteStore(record._id).then(() => {
+                  props.fetchStoreList();
+                });
+              }}
+            />
+          </div>
         );
       },
     },

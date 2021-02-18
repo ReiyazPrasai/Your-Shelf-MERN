@@ -58,3 +58,12 @@ module.exports.getByIdBrandCallback = async (req, res) => {
     return res.status(400).send(onFailure(400, "Could not fetch brand"));
   }
 };
+
+module.exports.deleteByIdBrandCallback = async (req, res) => {
+  try {
+    const brand = await Brand.findByIdAndDelete(req.params.id);
+    res.status(200).json(onSuccess(200, brand, "SuccessFully Deleted"));
+  } catch (err) {
+    return res.status(400).send(onFailure(400, "Could not delete brand"));
+  }
+};

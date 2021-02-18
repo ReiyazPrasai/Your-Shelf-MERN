@@ -44,17 +44,5 @@ export const editAttribute = (formData, identifier) => {
 };
 
 export const deleteAttribute = (identifier) => {
-  return deleteData(`api/attribute/${identifier}`)
-    .then((res) => {
-      // !multiple &&
-      //   Notification(
-      //     "Success!",
-      //     `Contact has been deleted successfully!`,
-      //     "success"
-      //   )
-      // redirect && history.push(`/contacts/list`)
-    })
-    .catch((err) => {
-      // Notification("Error!", "Something went wrong!", "error")
-    });
+  return deleteData(`api/attribute/delete/${identifier}`);
 };

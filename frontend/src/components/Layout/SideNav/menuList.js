@@ -10,6 +10,7 @@ import {
   faDollarSign,
   faPencilRuler,
   faThList,
+  faBuilding
 } from "@fortawesome/free-solid-svg-icons";
 
 const menuList = [
@@ -26,7 +27,7 @@ const menuList = [
   {
     label: "My Collection",
     icon: (
-      <div className="menu-icon-wrapper" style={{ background: "#F63702" }}>
+      <div className="menu-icon-wrapper" style={{ background: "#F68C02" }}>
         <FontAwesomeIcon icon={faDatabase} />
       </div>
     ),
@@ -118,13 +119,23 @@ const menuList = [
       {
         label: "Orders",
         icon: (
-          <div className="menu-icon-wrapper" style={{ background: "#15AD90" }}>
+          <div className="menu-icon-wrapper" style={{ background: "#F63702" }}>
             <FontAwesomeIcon icon={faDollarSign} />
           </div>
         ),
         id: "/stores/orders",
       },
     ],
+  },
+  {
+    label: "Company",
+    icon: (
+      <div className="menu-icon-wrapper" style={{ background: "#02A9F6" }}>
+        <FontAwesomeIcon icon={faBuilding} />
+      </div>
+    ),
+    id: "/company",
+    to: "/company",
   },
 ];
 

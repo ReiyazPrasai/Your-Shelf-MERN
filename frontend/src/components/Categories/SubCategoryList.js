@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Table, Row, Col } from "antd";
 
-import { Input, Switch, Button } from "../Common/Elements";
+import { Input, Switch, Button, DeleteButton } from "../Common/Elements";
 import SubCategoryListTop from "./SubCategoryListTop";
 import { components, getColumns } from "../Common/EditableCell.js/index.js";
 
-const ExpandedRowRender = (props) => {
+const SubCategoryList = (props) => {
   const [sortedInfo, setSortedInfo] = useState({});
   const [listQuery, setListQuery] = useState([]);
 
@@ -25,7 +25,6 @@ const ExpandedRowRender = (props) => {
     {
       title: "Sub Category Name",
       dataIndex: "name",
-      width: "33%",
       key: "name",
       sorter: (a, b) => a.name - b.name,
       isAdd: isEdit,
@@ -41,7 +40,7 @@ const ExpandedRowRender = (props) => {
           onBlur={(e) => {
             if (record._id !== "new") {
               toggleEdit();
-              form.resetFields(["subCategory", record._id, "name"])
+              form.resetFields(["subCategory", record._id, "name"]);
             }
           }}
           onPressEnter={(e) => {
@@ -58,7 +57,6 @@ const ExpandedRowRender = (props) => {
     {
       title: "Active Status",
       dataIndex: "isActive",
-      width: "33%",
       key: "isActive",
       sorter: (a, b) => a.isActive - b.isActive,
       sortOrder: sortedInfo.columnKey === "isActive" && sortedInfo.order,
@@ -77,6 +75,25 @@ const ExpandedRowRender = (props) => {
             disabled={isEdit === "new" && record._id !== "new"}
             initialValue={text}
           />
+        );
+      },
+    },
+    {
+      title: "Action",
+      width: 75,
+      render: (text, record) => {
+        return (
+          <div className="centralize">
+            <DeleteButton
+              onClick={() => {
+                props.deleteSubCategory(record._id).then(() => {
+                  props.fetchSubCategoryList(expandedRowKeys[0]).then(res=>{
+                    setData(res)
+                  });
+                });
+              }}
+            />
+          </div>
         );
       },
     },
@@ -133,7 +150,7 @@ const ExpandedRowRender = (props) => {
         });
     }
     setIsEdit(null);
-    form.resetFields()
+    form.resetFields();
   };
 
   const handleSubCategoryAdd = (e) => {
@@ -155,7 +172,7 @@ const ExpandedRowRender = (props) => {
   };
 
   return (
-    <div style={{ maxWidth: 1000, minWidth: 500, margin:'auto' }}>
+    <div>
       {subDataSource[record._id]?.[0]?._id !== "new" && (
         <SubCategoryListTop
           setListQuery={setListQuery}
@@ -193,7 +210,7 @@ const ExpandedRowRender = (props) => {
         summary={() => {
           return (
             <Table.Summary.Row>
-              <Table.Summary.Cell colSpan={2}>
+              <Table.Summary.Cell colSpan={3}>
                 {isEdit === "new" && (
                   <Row>
                     <Col style={{ padding: "0 16px" }} span={12}>
@@ -279,4 +296,4 @@ const ExpandedRowRender = (props) => {
   );
 };
 
-export default ExpandedRowRender;
+export default SubCategoryList;

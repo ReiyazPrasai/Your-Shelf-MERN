@@ -61,3 +61,12 @@ module.exports.updateStoreCallback = async (req, res) => {
   const savedStore = await store.save();
   res.status(200).json(onSuccess(200, savedStore, "SuccessFully Updated"));
 };
+
+module.exports.deleteByIdStoreCallback = async (req, res) => {
+  try {
+    const store = await Store.findByIdAndDelete(req.params.id);
+    res.status(200).json(onSuccess(200, store, "SuccessFully Deleted"));
+  } catch (err) {
+    return res.status(400).send(onFailure(400, "Could not delete store"));
+  }
+}

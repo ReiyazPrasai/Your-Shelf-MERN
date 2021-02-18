@@ -21,13 +21,12 @@ export const ListContainer = (props) => {
   };
 
   useEffect(() => {
-    props.actions.reducerCleanRequest()
+    props.actions.reducerCleanRequest();
     props.actions.headingRequest("Categories");
   }, [props.actions]);
 
   useEffect(() => {
     if (!isCalled) {
-      console.log('here', locationStateCategoryId)
       !locationStateCategoryId && props.actions.fetchCategoryList();
       setIsCalled(true);
     }
@@ -40,6 +39,8 @@ export const ListContainer = (props) => {
       editCategory={categoryService.editCategory}
       editSubCategory={categoryService.editSubCategory}
       addNewSubCategory={categoryService.addNewSubCategory}
+      deleteCategory={categoryService.deleteCategory}
+      deleteSubCategory={categoryService.deleteSubCategory}
       {...props}
     />
   );

@@ -8,9 +8,9 @@ import {
 } from "@ant-design/icons";
 import { Form, Table } from "antd";
 
-import { Card, Input, Switch } from "../Common/Elements";
+import { Card, DeleteButton, Input, Switch } from "../Common/Elements";
 import ListTop from "./ListTop";
-import ExpandedRowRender from "./SubCategoryList";
+import SubCategoryList from "./SubCategoryList";
 import { useLocation } from "react-router";
 import { isEmpty } from "../../utils/commonUtils";
 import { components, getColumns } from "../Common/EditableCell.js";
@@ -30,7 +30,6 @@ const List = (props) => {
     {
       title: "Category Name",
       dataIndex: "name",
-      width: "33%",
       key: "name",
       sorter: (a, b) => a.name - b.name,
       sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
@@ -57,7 +56,6 @@ const List = (props) => {
     {
       title: "Approval Status",
       dataIndex: "isApproved",
-      width: "33%",
       key: "isApproved",
       sorter: (a, b) => a.isApproved - b.isApproved,
       sortOrder: sortedInfo.columnKey === "isApproved" && sortedInfo.order,
@@ -80,7 +78,6 @@ const List = (props) => {
     {
       title: "Active Status",
       dataIndex: "isActive",
-      width: "33%",
       key: "isActive",
       sorter: (a, b) => a.isActive - b.isActive,
       sortOrder: sortedInfo.columnKey === "isActive" && sortedInfo.order,
@@ -100,6 +97,23 @@ const List = (props) => {
         );
       },
     },
+    {
+      title: "Action",
+      width: 75,
+      render: (text, record) => {
+        return (
+          <div className="centralize">
+           <DeleteButton
+              onClick={() => {
+                props.deleteCategory(record._id).then(() => {
+                  props.fetchCategoryList();
+                });
+              }}
+            />
+          </div>
+        );
+      },
+    },
   ];
 
   const CustomExpandIcon = (localProps) => {
@@ -115,7 +129,7 @@ const List = (props) => {
     } else {
       return (
         <PlusSquareFilled
-        style={{background:"#10BC83", color: '#BFD5DF', border: 'none'}}
+          style={{ background: "#10BC83", color: "#BFD5DF", border: "none" }}
           onClick={(e) => {
             setexpandedRowKeys([localProps.record._id]);
             if (
@@ -170,7 +184,7 @@ const List = (props) => {
           props.fetchCategoryList();
         });
     }
-    form.resetFields()
+    form.resetFields();
   };
 
   const handleChange = (pagination, filters, sorter) => {
@@ -232,9 +246,9 @@ const List = (props) => {
             components={components}
             onChange={handleChange}
             dataSource={datasource}
-            scroll={{ x: 1000 }}
             loading={props.categoriesLoading}
             columns={getColumns(columns)}
+            scroll={{x:400}}
             pagination={
               props.categoriesLoading
                 ? { defaultPageSize: 10 }
@@ -249,14 +263,14 @@ const List = (props) => {
                     showSizeChanger: true,
                     pageSizeOptions: [5, 10, 15, 20],
                     defaultPageSize: 10,
-                    position: ["topRight", "bottomRight"],
+                    position: ["bottomRight"],
                   }
                 : false
             }
             bordered
             expandIcon={(p) => <CustomExpandIcon {...p} />}
             expandedRowRender={(rec) => (
-              <ExpandedRowRender
+              <SubCategoryList
                 record={rec}
                 {...props}
                 setSubDataSource={setSubDataSource}

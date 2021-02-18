@@ -19,6 +19,7 @@ export const ListContainer = (props) => {
   };
 
   useEffect(() => {
+    props.actions.reducerCleanRequest()
     props.actions.headingRequest("Attributes");
   }, [props.actions]);
 
@@ -35,6 +36,7 @@ export const ListContainer = (props) => {
       fetchAttributeList={fetchAttributeList}
       fetchCategoryList={fetchCategoryList}
       editAttribute={attributeService.editAttribute}
+      deleteAttribute={attributeService.deleteAttribute}
       {...props}
     />
   );

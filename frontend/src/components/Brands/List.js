@@ -6,7 +6,7 @@ import {
   QuestionCircleFilled,
 } from "@ant-design/icons";
 
-import { Card, Input, Switch } from "../Common/Elements";
+import { Card, DeleteButton, Input, Switch } from "../Common/Elements";
 import { components, getColumns } from "../Common/EditableCell.js";
 import ListTop from "./ListTop";
 
@@ -27,7 +27,7 @@ const List = (props) => {
           props.fetchBrandList();
         });
     }
-    form.resetFields()
+    form.resetFields();
   };
 
   const handleChange = (pagination, filters, sorter) => {
@@ -51,7 +51,6 @@ const List = (props) => {
     {
       title: "Brand Name",
       dataIndex: "name",
-      width: "33%",
       key: "name",
       sorter: (a, b) => a.name - b.name,
       sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
@@ -64,7 +63,7 @@ const List = (props) => {
           autoFocus
           onBlur={(e) => {
             toggleEdit();
-            form.resetFields(["brand", record._id, "name"])
+            form.resetFields(["brand", record._id, "name"]);
           }}
           onPressEnter={(e) => {
             handleSubmit(e.target.value, record, "name");
@@ -77,7 +76,6 @@ const List = (props) => {
     {
       title: "Approval Status",
       dataIndex: "isApproved",
-      width: "33%",
       key: "isApproved",
       sorter: (a, b) => a.isApproved - b.isApproved,
       sortOrder: sortedInfo.columnKey === "isApproved" && sortedInfo.order,
@@ -100,7 +98,6 @@ const List = (props) => {
     {
       title: "Active Status",
       dataIndex: "isActive",
-      width: "33%",
       key: "isActive",
       sorter: (a, b) => a.isActive - b.isActive,
       sortOrder: sortedInfo.columnKey === "isActive" && sortedInfo.order,
@@ -116,6 +113,23 @@ const List = (props) => {
             }}
             initialValue={text}
           />
+        );
+      },
+    },
+    {
+      title: "Action",
+      width: 75,
+      render: (text, record) => {
+        return (
+          <div className="centralize">
+            <DeleteButton
+              onClick={() => {
+                props.deleteBrand(record._id).then(() => {
+                  props.fetchBrandList();
+                });
+              }}
+            />
+          </div>
         );
       },
     },

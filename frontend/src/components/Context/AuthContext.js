@@ -67,6 +67,7 @@ const AuthProvider = (props) => {
         })
         .catch((err) => {
           setUser(err.data);
+          history.push('/auth/login')
         })
         .finally((res) => {
           setPageLoading(false);

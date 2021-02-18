@@ -8,9 +8,9 @@ import {
 } from "@ant-design/icons";
 import { Form, Table } from "antd";
 
-import { Card, Input, Switch } from "../Common/Elements";
+import { Card, DeleteButton, Input, Switch } from "../Common/Elements";
 import ListTop from "./ListTop";
-import AttributeValueList from "./AttributeValueListTop";
+import AttributeValueList from "./AttributeValueList";
 import { components, getColumns } from "../Common/EditableCell.js";
 
 const List = (props) => {
@@ -39,9 +39,9 @@ const List = (props) => {
           formstyle={{ margin: 0 }}
           hideLabel
           autoFocus
-          onBlur={(e) => {            
+          onBlur={(e) => {
             toggleEdit();
-            form.resetFields(["attributes", record._id, "name"])
+            form.resetFields(["attributes", record._id, "name"]);
           }}
           onPressEnter={(e) => {
             handleSubmit(e.target.value, record, "name");
@@ -92,6 +92,23 @@ const List = (props) => {
             }}
             initialValue={text}
           />
+        );
+      },
+    },
+    {
+      title: "Action",
+      width: 75,
+      render: (text, record) => {
+        return (
+          <div className="centralize">
+            <DeleteButton
+              onClick={() => {
+                props.deleteAttribute(record._id).then(() => {
+                  props.fetchAttributeList();
+                });
+              }}
+            />
+          </div>
         );
       },
     },
@@ -156,7 +173,7 @@ const List = (props) => {
           props.fetchAttributeList();
         });
     }
-    form.resetFields()
+    form.resetFields();
     setIsEdit(null);
   };
 
@@ -215,14 +232,12 @@ const List = (props) => {
             components={components}
             onChange={handleChange}
             dataSource={datasource}
-            scroll={{ x: 500 }}
             loading={props.attributesLoading}
             columns={getColumns(columns)}
             pagination={
               props.attributesLoading
                 ? { defaultPageSize: 10 }
-                :
-              datasource.length > 5
+                : datasource.length > 5
                 ? {
                     showTotal: (total, range) => (
                       <b style={{ color: "white" }}>

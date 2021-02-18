@@ -44,17 +44,5 @@ export const editBrand = (formData, identifier) => {
 };
 
 export const deleteBrand = (identifier) => {
-  return deleteData(`api/brand/${identifier}`)
-    .then((res) => {
-      // !multiple &&
-      //   Notification(
-      //     "Success!",
-      //     `Contact has been deleted successfully!`,
-      //     "success"
-      //   )
-      // redirect && history.push(`/contacts/list`)
-    })
-    .catch((err) => {
-      // Notification("Error!", "Something went wrong!", "error")
-    });
+  return deleteData(`api/brand/delete/${identifier}`);
 };

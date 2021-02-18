@@ -1,4 +1,5 @@
 const { Category, SubCategory } = require("../models/Category");
+const Attribute = require("../models/Attribute");
 const { onSuccess, onFailure } = require("../utils/responseDataStructure");
 const {
   categoryValidation,
@@ -64,9 +65,42 @@ module.exports.updateCategoryCallback = async (req, res) => {
       category[key] = req.body[key];
     }
   }
-  const saveSubCategory = await category.save();
-  res.status(200).json(onSuccess(200, saveSubCategory, "SuccessFully Updated"));
+  const saveCategory = await category.save();
+  res.status(200).json(onSuccess(200, saveCategory, "SuccessFully Updated"));
 };
+
+module.exports.getByIdCategoryCallback = async (req, res) => {
+  try {
+    const category = await Category.findById(req.body._id);
+    res.status(200).json(onSuccess(200, category, "SuccessFully Fetched"));
+  } catch (err) {
+    return res.status(400).send(onFailure(400, "Could not fetch category"));
+  }
+};
+
+module.exports.deleteByIdCategoryCallback = async (req, res) => {
+  try {
+    const category = await Category.findByIdAndDelete(req.params.id);
+    SubCategory.deleteMany({ categoryId: req.params.id });
+    const attribute = Attribute.find();
+    (await attribute).forEach((item) => {
+      const categoryList = item.categoryIdList.map(({ id }) => id);
+      if (categoryList.includes(req.params.id)) {
+        item.categoryIdList = item.categoryIdList.filter(
+          ({ id }) => id !== req.params.id
+        );
+        console.log(attribute.categoryIdList);
+        item.save();
+      }
+    });
+
+    res.status(200).json(onSuccess(200, category, "SuccessFully Deleted"));
+  } catch (err) {
+    return res.status(400).send(onFailure(400, "Could not delete category"));
+  }
+};
+
+// Sub Category Callbacks
 
 module.exports.addSubCategoryCallback = async (req, res) => {
   const { error } = subCategoryValidation(req.body);
@@ -104,7 +138,6 @@ module.exports.updateSubCategoryCallback = async (req, res) => {
 };
 
 module.exports.getSubCategoryCallback = async (req, res) => {
- 
   try {
     if (req.searchBy) {
       const subCategory = await SubCategory.find({
@@ -127,11 +160,14 @@ module.exports.getSubCategoryCallback = async (req, res) => {
   }
 };
 
-module.exports.getByIdCategoryCallback = async (req, res) => {
+module.exports.deleteByIdSubCategoryCallback = async (req, res) => {
   try {
-    const category = await Category.findById(req.body._id);
-    res.status(200).json(onSuccess(200, category, "SuccessFully Fetched"));
+    const subCategory = await SubCategory.findByIdAndDelete(req.params.id);
+
+    res.status(200).json(onSuccess(200, subCategory, "SuccessFully Deleted"));
   } catch (err) {
-    return res.status(400).send(onFailure(400, "Could not fetch category"));
+    return res
+      .status(400)
+      .send(onFailure(400, "Could not delete sub category"));
   }
 };

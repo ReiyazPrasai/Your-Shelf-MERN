@@ -15,7 +15,10 @@ export const ListContainer = (props) => {
 
   useEffect(() => {
     props.actions.headingRequest("Stores");
-  }, [props]);
+    return () => {
+      props.actions.reducerCleanRequest();
+    };
+  }, [props.actions]);
 
   useEffect(() => {
     if (!isCalled) {
@@ -24,7 +27,14 @@ export const ListContainer = (props) => {
     }
   }, [props.actions, isCalled]);
 
-  return <List fetchStoreList={fetchStoreList} editStore={storeService.editStore} {...props} />;
+  return (
+    <List
+      fetchStoreList={fetchStoreList}
+      editStore={storeService.editStore}
+    deleteStore={storeService.deleteStore}
+      {...props}
+    />
+  );
 };
 
 const mapStateToProps = (state) => ({

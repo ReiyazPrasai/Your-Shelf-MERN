@@ -188,7 +188,7 @@ const List = (props) => {
   }, [props.categories, props.categoriesLoading]);
 
   return (
-    <div style={{ maxWidth: 1000, minWidth: 500, margin:'auto' }}>
+    <div style={{ maxWidth: 1000, minWidth: 420, margin:'auto' }}>
       {!isEmpty(props.categories) && (
         <div style={{ padding: 2, marginBottom: 20 }}>
           <CategoryListTop
@@ -206,7 +206,7 @@ const List = (props) => {
           <Table
             onChange={handleChange}
             dataSource={dataSource}
-            scroll={{ x: 500 }}
+            scroll={{ x: 400 }}
             loading={props.categoriesLoading || loading}
             columns={columns}
             pagination={

@@ -1,7 +1,7 @@
 import { Col, Row } from "antd";
 import React from "react";
 import { getQuery } from "../../utils/commonUtils";
-import { Button, Input, Select } from "../Common/Elements";
+import { Button, Input, SearchButton, Select } from "../Common/Elements";
 
 const ListTop = (props) => {
   const { setListQuery, listQuery, fetchAttributeList } = props;
@@ -24,25 +24,31 @@ const ListTop = (props) => {
   const handleSearch = (e) => {
     e.preventDefault();
     const formData = props.form.getFieldsValue();
+    if (
+      formData.name ||
+      formData.isActive ||
+      formData.isActive === false ||
+      formData.isApproved ||
+      formData.isApproved === false
+    ) {
+      setListQuery(getQuery(formData, listQuery));
+      fetchAttributeList(getQuery(formData, listQuery));
+    }
+  };
 
-    setListQuery(getQuery(formData, listQuery));
-    fetchAttributeList(getQuery(formData, listQuery));
+  const handleClearSearch = () => {
+    props.form.resetFields();
+    setListQuery(listQuery.filter((item) => item.action === "sort"));
+    fetchAttributeList();
   };
 
   return (
     <Row gutter={8}>
-      <Col
-        xxl={6}
-        xl={!isClearSearch ? 7 : 6}
-        lg={8}
-        md={8}
-        sm={!isClearSearch ? 24 : 12}
-        xs={24}
-      >
-        <Input name="name" label="Attribute Name" />
+      <Col xxl={8} xl={7} lg={6} md={12} sm={12} xs={24}>
+        <Input name="name" label="Category Name" />
       </Col>
 
-      <Col xxl={4} xl={!isClearSearch ? 5 : 4} lg={8} md={8} sm={12} xs={24}>
+      <Col xxl={4} xl={5} lg={5} md={12} sm={12} xs={24}>
         <Select
           name="isApproved"
           label="Approval Status"
@@ -51,7 +57,7 @@ const ListTop = (props) => {
           description={"description"}
         />
       </Col>
-      <Col xxl={4} xl={!isClearSearch ? 5 : 4} lg={8} md={8} sm={12} xs={24}>
+      <Col xxl={4} xl={5} lg={5} md={12} sm={12} xs={24}>
         <Select
           name="isActive"
           label="Active Status"
@@ -60,52 +66,41 @@ const ListTop = (props) => {
           description={"description"}
         />
       </Col>
-      <Col xxl={3} xl={3} lg={8} md={8} sm={!isClearSearch ? 12 : 6} xs={12}>
-        <Button
-          style={{ color: "#10BC83", width: "100%" }}
-          onClick={handleSearch}
-        >
-          Search
-        </Button>
-      </Col>
-
-      <Col
-        xxl={!isClearSearch ? 0 : 3}
-        xl={!isClearSearch ? 0 : 3}
-        lg={!isClearSearch ? 0 : 8}
-        md={!isClearSearch ? 0 : 8}
-        sm={!isClearSearch ? 0 : 6}
-        xs={!isClearSearch ? 0 : 12}
-      >
-        {isClearSearch && (
-          <Button
-            style={{ color: "#10BC83", width: "100%" }}
-            onClick={() => {
-              props.form.resetFields();
-              setListQuery(listQuery.filter((item) => item.action === "sort"));
-              fetchAttributeList();
-            }}
+      <Col xxl={8} xl={7} lg={8} md={12} sm={12} xs={24}>
+        <Row gutter={8}>
+          <Col span={2} xl={3} md={3} sm={4} xs={3}>
+            <SearchButton
+              style={{ color: "#10BC83", width: "100%" }}
+              onClick={handleSearch}
+              isSearch
+            >
+              Search
+            </SearchButton>
+          </Col>
+          {isClearSearch && (
+            <Col span={2} xl={3} md={3} sm={4} xs={3}>
+              <SearchButton
+                style={{ color: "#10BC83", width: "100%" }}
+                onClick={handleClearSearch}
+              />
+            </Col>
+          )}
+          <Col
+            span={!isClearSearch ? 22 : 20}
+            xl={!isClearSearch ? 21 : 18}
+            md={!isClearSearch ? 21 : 18}
+            sm={!isClearSearch ? 20 : 16}
+            xs={!isClearSearch ? 21 : 18}
           >
-            Clear Search
-          </Button>
-        )}
-      </Col>
-
-      <Col
-        xxl={4}
-        xl={4}
-        lg={8}
-        md={8}
-        sm={!isClearSearch ? 12 : 24}
-        xs={!isClearSearch ? 12 : 24}
-      >
-        <Button
-          style={{ float: "right", width: "100%" }}
-          type="primary"
-          to="/features/attributes/add"
-        >
-          Add Attributes
-        </Button>
+            <Button
+              style={{ float: "right", width: "100%" }}
+              type="primary"
+              to="/features/attributes/add"
+            >
+              Add Attribute
+            </Button>
+          </Col>
+        </Row>
       </Col>
     </Row>
   );

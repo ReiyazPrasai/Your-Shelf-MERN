@@ -10,8 +10,16 @@ import {
   Switch,
   Spin,
   Skeleton,
+  Popconfirm,
 } from "antd";
-import { LockOutlined, LeftOutlined, MailOutlined } from "@ant-design/icons";
+import {
+  LockOutlined,
+  LeftOutlined,
+  MailOutlined,
+  SearchOutlined,
+  UndoOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 
 import "./elements.css";
 import history from "../../../utils/historyUtil";
@@ -468,7 +476,7 @@ export const Card = (props) => {
 const AntButton = (props) => {
   return (
     <Link to={props.to || "#"} style={{ width: "inherit" }}>
-      <FormItem>
+      <FormItem {...props}>
         <Button
           onClick={(e) => {
             // e.preventDefault();
@@ -482,6 +490,39 @@ const AntButton = (props) => {
         </Button>
       </FormItem>
     </Link>
+  );
+};
+
+export const SearchButton = (props) => {
+  return (
+    <AntButton
+      className={props.isSearch ? "search-btn" : "clear-search-btn"}
+      onClick={props.onClick}
+    >
+      {props.isSearch ? (
+        <SearchOutlined style={{ fontWeight: "bold", color: "white" }} />
+      ) : (
+        <UndoOutlined
+          rotate={180}
+          style={{ fontWeight: "bold", color: "white" }}
+        />
+      )}
+    </AntButton>
+  );
+};
+
+export const DeleteButton = (props) => {
+  return (
+    <Popconfirm title="Sure to delete?" onConfirm={props.onClick}>
+      <AntButton
+        hideLabel
+        formstyle={{ margin: 0 }}
+        className="delete-btn"
+        style={{ height: 32, width: 32 }}
+      >
+        <DeleteOutlined style={{ fontWeight: "bold", color: "white" }} />
+      </AntButton>
+    </Popconfirm>
   );
 };
 

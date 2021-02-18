@@ -1,7 +1,7 @@
 import { Col, Row } from "antd";
 import React from "react";
 import { getQuery } from "../../utils/commonUtils";
-import { Button, Input, Select } from "../Common/Elements";
+import { Input, SearchButton, Select } from "../Common/Elements";
 
 const SubListTop = (props) => {
   const {
@@ -11,7 +11,8 @@ const SubListTop = (props) => {
     listQuery,
     fetchSubCategoryList,
   } = props;
-  
+
+  const isClearSearch = !!listQuery.find((item) => item.action === "search");
 
   const activeStatus = [
     { value: true, description: "Yes" },
@@ -22,23 +23,46 @@ const SubListTop = (props) => {
   const handleSearch = (e) => {
     e.preventDefault();
     const formData = props.form.getFieldsValue()[expandedRowKeys[0]];
+    if (formData.name || formData.isActive || formData.isActive === false) {
+      setListQuery(getQuery(formData, listQuery));
+      fetchSubCategoryList(
+        expandedRowKeys[0],
+        getQuery(formData, listQuery)
+      ).then((res) => {
+        setData(res);
+      });
+    }
+  };
 
-    setListQuery(getQuery(formData, listQuery));
-    fetchSubCategoryList(
-      expandedRowKeys[0],
-      getQuery(formData, listQuery)
-    ).then((res) => {
+  const handleClearSearch = () => {
+    props.form.resetFields();
+    setListQuery(listQuery.filter((item) => item.action === "sort"));
+    fetchSubCategoryList(expandedRowKeys[0]).then((res) => {
       setData(res);
     });
   };
 
   return (
     <Row gutter={8}>
-      <Col xxl={6} xl={6} lg={6} md={5} sm={12} xs={24}>
+      <Col
+        xxl={6}
+        xl={6}
+        lg={!isClearSearch ? 12 : 11}
+        md={!isClearSearch ? 12 : 11}
+        sm={!isClearSearch ? 12 : 11}
+        xs={24}
+      >
         <Input name={[expandedRowKeys[0], "name"]} label="Sub Category Name" />
       </Col>
 
-      <Col xxl={6} xl={6} lg={6} md={5} sm={12} xs={24}>
+      <Col
+        xxl={6}
+        xl={6}
+        lg={!isClearSearch ? 10 : 9}
+        md={!isClearSearch ? 10 : 9}
+        sm={!isClearSearch ? 10 : 9}
+        xs={!isClearSearch ? 20 : 16}
+      >
         <Select
           name={[expandedRowKeys[0], "isActive"]}
           label="Active Status"
@@ -48,28 +72,19 @@ const SubListTop = (props) => {
         />
       </Col>
 
-      <Col xxl={4} xl={4} lg={4} md={4} sm={6} xs={12}>
-        <Button
+      <Col xxl={1} xl={1} lg={2} md={2} sm={2} xs={4}>
+        <SearchButton
           style={{ color: "#10BC83", width: "100%" }}
           onClick={handleSearch}
-        >
-          Search
-        </Button>
+          isSearch={true}
+        />
       </Col>
-      {listQuery.find((item) => item.action === "search") && (
-        <Col xxl={4} xl={4} lg={4} md={4} sm={6} xs={12}>
-          <Button
+      {isClearSearch && (
+        <Col span={1} xl={1} lg={2} md={2} sm={2} xs={4}>
+          <SearchButton
             style={{ color: "#10BC83", width: "100%" }}
-            onClick={() => {
-              props.form.resetFields();
-              setListQuery(listQuery.filter((item) => item.action === "sort"));
-              fetchSubCategoryList(expandedRowKeys[0]).then((res) => {
-                setData(res);
-              });
-            }}
-          >
-            Clear Search
-          </Button>
+            onClick={handleClearSearch}
+          />
         </Col>
       )}
     </Row>

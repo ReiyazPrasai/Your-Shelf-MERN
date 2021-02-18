@@ -40,22 +40,9 @@ export const addNewStore = (formData) => {
 };
 
 export const editStore = (formData, identifier) => {
-  return update(`api/store/edit/${identifier}`, formData)
-  
+  return update(`api/store/edit/${identifier}`, formData);
 };
 
 export const deleteStore = (identifier) => {
-  return deleteData(`api/store/${identifier}`)
-    .then((res) => {
-      // !multiple &&
-      //   Notification(
-      //     "Success!",
-      //     `Contact has been deleted successfully!`,
-      //     "success"
-      //   )
-      // redirect && history.push(`/contacts/list`)
-    })
-    .catch((err) => {
-      // Notification("Error!", "Something went wrong!", "error")
-    });
+  return deleteData(`api/store/delete/${identifier}`);
 };

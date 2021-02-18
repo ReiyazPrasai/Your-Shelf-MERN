@@ -62,3 +62,12 @@ module.exports.updateAttributeCallback = async (req, res) => {
   const savedAttribute = await attribute.save();
   res.status(200).json(onSuccess(200, savedAttribute, "SuccessFully Updated"));
 };
+
+module.exports.deleteByIdAttributeCallback = async (req, res) => {
+  try {
+    const attribute = await Attribute.findByIdAndDelete(req.params.id);
+    res.status(200).json(onSuccess(200, attribute, "SuccessFully Deleted"));
+  } catch (err) {
+    return res.status(400).send(onFailure(400, "Could not delete attribute"));
+  }
+}
