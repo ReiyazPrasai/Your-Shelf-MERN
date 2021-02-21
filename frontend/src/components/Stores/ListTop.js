@@ -88,9 +88,9 @@ const ListTop = (props) => {
             <Button
               style={{ float: "right", width: "100%" }}
               type="primary"
-              to="/features/categories/add"
+              to="/features/stores/add"
             >
-              Add Category
+              Add Store
             </Button>
           </Col>
         </Row>

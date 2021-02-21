@@ -109,7 +109,7 @@ const menuList = [
       {
         label: "Manage",
         icon: (
-          <div className="menu-icon-wrapper" style={{ background: "#5ead15" }}>
+          <div className="menu-icon-wrapper" style={{ background: "#02A9F6" }}>
             <FontAwesomeIcon icon={faPencilRuler} />
           </div>
         ),
@@ -130,7 +130,7 @@ const menuList = [
   {
     label: "Company",
     icon: (
-      <div className="menu-icon-wrapper" style={{ background: "#02A9F6" }}>
+      <div className="menu-icon-wrapper" style={{ background: "#5ead15" }}>
         <FontAwesomeIcon icon={faBuilding} />
       </div>
     ),

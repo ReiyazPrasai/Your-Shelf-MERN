@@ -419,6 +419,7 @@ export const Card = (props) => {
             <LeftOutlined />
           </div>
         )}
+        {props.title&&<h4 style={{color:"#E7E8E9"}}>{props.title}</h4>}
 
         {props.status && (
           <div>
