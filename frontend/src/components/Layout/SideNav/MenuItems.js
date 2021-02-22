@@ -34,11 +34,18 @@ const MenuItems = (props) => {
   const subMenuClass = (id) => (isSelected[1] === id ? "selected-menu" : "");
 
   const upDownArrow = (id) => (
-    <div className="sub-menu-arrow centralize" style={props.isCollapsed?{marginLeft: 8}:{}}>
+    <div
+      className="sub-menu-arrow centralize"
+      style={props.isCollapsed ? { marginLeft: 8 } : {}}
+    >
       {subMenuShow[0] === true && subMenuShow[1] === id ? (
-        <CaretUpFilled style={{ fontSize: props.isCollapsed?".6rem":".9rem" }} />
+        <CaretUpFilled
+          style={{ fontSize: props.isCollapsed ? ".6rem" : ".9rem" }}
+        />
       ) : (
-        <CaretDownFilled style={{ fontSize: props.isCollapsed?".6rem":".9rem" }} />
+        <CaretDownFilled
+          style={{ fontSize: props.isCollapsed ? ".6rem" : ".9rem" }}
+        />
       )}
     </div>
   );
@@ -46,13 +53,14 @@ const MenuItems = (props) => {
   const toolTip = (label, id, isSubMenu, subMenu) => {
     return (
       <div
-        className={`menu-tooltip ${
-          isSubMenu ? subMenuClass(id) : ""
-        } ${isHovered === id ? tooltipClass : ""}`}
+        className={`menu-tooltip ${isSubMenu ? subMenuClass(id) : ""} ${
+          isHovered === id ? tooltipClass : ""
+        }`}
         style={{ position: "absolute" }}
       >
         <div className="menu-label" style={{ paddingLeft: "6px" }}>
-         {" "} {label}
+          {" "}
+          {label}
         </div>
         {subMenu && upDownArrow(id)}
       </div>
@@ -61,10 +69,34 @@ const MenuItems = (props) => {
 
   return (
     <div className={"menu-wrapper"}>
-      {menuList?.map(({ label, id, subMenu, icon, to }) => {
+      {menuList?.map(({ label, id, subMenu, icon, to }, index) => {
         return (
           <div key={id}>
             <Link to={to} style={{ textDecoration: "none", color: "inherit" }}>
+              {(index === 1 || index === 3) && (
+                <div
+                  className="centralize"
+                  style={{
+                    margin: "16px 0 0 0",
+                    width: "100%",
+                  }}
+                >
+                  <span style={{ fontSize: ".6rem", fontWeight: 'bold', color: "#10BC83" }}>
+                    {index === 1 ? "Products" : "Company"}
+                  </span>
+                  {!props.isCollapsed && (
+                    <div
+                      style={{
+                        background: "#10BC83",
+                        height: "0px",
+                        width: "150px",
+                        marginLeft: "10px",
+                        marginTop: '3px'
+                      }}
+                    />
+                  )}
+                </div>
+              )}
               <div
                 style={{ position: "relative" }}
                 onClick={() => {

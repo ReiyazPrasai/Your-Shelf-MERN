@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 2,
   },
+  roleId: {
+    type: String,
+    required: true,
+  },
   isConfirmed: {
     type: Boolean,
     default: false,

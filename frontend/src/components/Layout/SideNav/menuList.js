@@ -10,7 +10,10 @@ import {
   faDollarSign,
   faPencilRuler,
   faThList,
-  faBuilding
+  faBuilding,
+  faUsers,
+  faUser,
+  faClipboard,
 } from "@fortawesome/free-solid-svg-icons";
 
 const menuList = [
@@ -95,6 +98,17 @@ const menuList = [
       },
     ],
   },
+
+  {
+    label: "Company",
+    icon: (
+      <div className="menu-icon-wrapper" style={{ background: "#5ead15" }}>
+        <FontAwesomeIcon icon={faBuilding} />
+      </div>
+    ),
+    id: "/company",
+    to: "/company",
+  },
   {
     label: "Stores",
     icon: (
@@ -109,7 +123,7 @@ const menuList = [
       {
         label: "Manage",
         icon: (
-          <div className="menu-icon-wrapper" style={{ background: "#02A9F6" }}>
+          <div className="menu-icon-wrapper" style={{ background: "#1069bc" }}>
             <FontAwesomeIcon icon={faPencilRuler} />
           </div>
         ),
@@ -128,14 +142,36 @@ const menuList = [
     ],
   },
   {
-    label: "Company",
+    label: "Groups",
     icon: (
-      <div className="menu-icon-wrapper" style={{ background: "#5ead15" }}>
-        <FontAwesomeIcon icon={faBuilding} />
+      <div className="menu-icon-wrapper" style={{ background: "#ce0d0d" }}>
+        <FontAwesomeIcon icon={faUsers} />
       </div>
     ),
-    id: "/company",
-    to: "/company",
+    id: "/groups",
+    to: "#",
+
+    subMenu: [
+      {
+        label: "Roles",
+        icon: (
+          <div className="menu-icon-wrapper" style={{ background: "#bc10ae" }}>
+            <FontAwesomeIcon icon={faClipboard} />
+          </div>
+        ),
+        to: "/groups/roles",
+        id: "/groups/roles",
+      },
+      {
+        label: "Users",
+        icon: (
+          <div className="menu-icon-wrapper" style={{ background: "#bcb910" }}>
+            <FontAwesomeIcon icon={faUser} />
+          </div>
+        ),
+        id: "/groups/users",
+      },
+    ],
   },
 ];
 

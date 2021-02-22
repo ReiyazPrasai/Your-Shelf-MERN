@@ -12,6 +12,7 @@ const SideNav = (props) => {
       <div className="compose">
         <PlusOutlined /> {!props.isCollapsed && "Add Product"}
       </div>
+
       <MenuItems {...props} />
     </div>
   );
