@@ -1,7 +1,8 @@
 const router = require("express").Router();
 
-const verifyToken = require("../middleware/handleQuery");
+const verifyToken = require("../middleware/verifyToken");
 const handleQuery = require("../middleware/handleQuery");
+
 const {
   addBrandCallback,
   getBrandCallback,

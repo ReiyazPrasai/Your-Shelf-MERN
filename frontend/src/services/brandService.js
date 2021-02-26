@@ -32,7 +32,7 @@ export const addNewBrand = (formData) => {
   return post(`api/brand/add`, formData)
     .then(() => {
       //   Notification("Success!", `Brand has been added successfully!`, "success")
-      history.push("/brands");
+      history.push("/features/brands");
     })
     .catch((err) => {
       // Notification("Error!", "Something went wrong!", "error");

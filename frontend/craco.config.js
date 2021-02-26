@@ -23,6 +23,7 @@ module.exports = {
               "@table-row-hover-bg": "#3fcaac30",
               "select-item-selected-color": "#10BC83",
               "@select-clear-background": "#E7E8E9",
+              "@error-color": "#ff3939"
             },
             javascriptEnabled: true,
           },

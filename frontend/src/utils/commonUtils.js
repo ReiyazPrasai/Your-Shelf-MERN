@@ -1,3 +1,5 @@
+import menuList from "../components/Layout/SideNav/menuList";
+
 export const isEmpty = (obj) => {
   if (typeof obj === "number") {
     return false;
@@ -92,4 +94,12 @@ export const listSearch = (form, mainList, setList) => {
   }
 };
 
-
+export const getModuleList = () => {
+  const test = menuList.map((item) => {
+    if (item.subMenu) {
+      return [...item.subMenu];
+    }
+    return item;
+  });
+  return test.flat();
+};

@@ -52,7 +52,7 @@ export const get = (
         return Promise.resolve(res?.data);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         dispatch(requestFailure(requestFailureActionType, err?.data));
         return Promise.reject(err?.data);
       });

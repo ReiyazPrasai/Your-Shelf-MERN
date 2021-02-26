@@ -10,9 +10,11 @@ module.exports.addBrandCallback = async (req, res) => {
   const isBrand = await Brand.findOne({ name: req.body.name });
   if (isBrand)
     return res.status(400).send(onFailure(400, "Brand already exists"));
+    // console.log(req.user)
   const brand = new Brand({
     name: req.body.name,
     isActive: req.body.isActive,
+    companyId: req.user.companyId
   });
   const savedBrand = await brand.save();
   res.status(200).json(onSuccess(200, savedBrand, "SuccessFully Added"));

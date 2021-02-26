@@ -15,6 +15,7 @@ module.exports.addAttributeCallback = async (req, res) => {
     isActive: req.body.isActive,
     attributeValues: req.body.attributeValues,
     categoryIdList: req.body.categoryIdList,
+    companyId: req.user.companyId
   });
   const saveAttribute = await attribute.save();
   res.status(200).json(onSuccess(200, saveAttribute, "SuccessFully Added"));

@@ -14,6 +14,7 @@ module.exports.addGroupCallback = async (req, res) => {
     name: req.body.name,
     modules: req.body.modules,
     isActive: req.body.isActive,
+    companyId: req.user.companyId
   });
   const savedGroup = await group.save();
   res.status(200).json(onSuccess(200, savedGroup, "SuccessFully Added"));

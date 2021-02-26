@@ -1,18 +1,11 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
+const groupSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  modules: [
-    {
-      name: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  modules: [String],
   isActive: {
     type: Boolean,
     required: true,
@@ -23,4 +16,4 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Group", userSchema);
+module.exports = mongoose.model("Group", groupSchema);

@@ -6,7 +6,7 @@ import { fetch, store } from "../../utils/httpUtils";
 import history from "../../utils/historyUtil";
 
 const AuthContext = createContext({});
-
+var userInfo;
 const AuthProvider = (props) => {
   const [user, setUser] = useState({ loggedIn: false });
   const [loginLoading, setLoginLoading] = useState(false);
@@ -63,7 +63,7 @@ const AuthProvider = (props) => {
             res.data.data.token,
             process.env.REACT_APP_TOKEN_SECRET
           );
-          setUser({ ...decoded, loggedIn: true });
+          setUser({ ...decoded, loggedIn: true });       
         })
         .catch((err) => {
           setUser(err.data);
@@ -92,4 +92,4 @@ const AuthProvider = (props) => {
   );
 };
 
-export { AuthProvider, AuthContext };
+export { AuthProvider, AuthContext, userInfo };

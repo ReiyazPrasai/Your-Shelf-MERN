@@ -63,6 +63,7 @@ export const FormItem = (props) => {
       colon={false}
       style={{ marginBottom: 8, ...props.formstyle }}
       rules={[...rules, ...localRules]}
+      validateFirst={true}
     >
       {props.children}
     </Form.Item>
@@ -374,7 +375,7 @@ export const Password = (props) => {
       : tempRules;
 
   return (
-    <FormItem {...props} localrules={localrules} hasFeedback>
+    <FormItem {...props} localRules={localrules} hasFeedback>
       <Input.Password
         ref={props.ref}
         allowClear={props.allowClear}
@@ -419,7 +420,7 @@ export const Card = (props) => {
             <LeftOutlined />
           </div>
         )}
-        {props.title&&<h4 style={{color:"#E7E8E9"}}>{props.title}</h4>}
+        {props.title && <h4 style={{ color: "#E7E8E9" }}>{props.title}</h4>}
 
         {props.status && (
           <div>
@@ -479,13 +480,15 @@ const AntButton = (props) => {
     <Link to={props.to || "#"} style={{ width: "inherit" }}>
       <FormItem {...props}>
         <Button
+          type={props.type}
           onClick={(e) => {
             // e.preventDefault();
             props.onClick && props.onClick(e);
           }}
           style={{ width: props.width || "100%", ...props.style }}
           className={props.className}
-          {...props}
+          disabled={props.disabled}
+          loading={props.loading}
         >
           {props.children}
         </Button>

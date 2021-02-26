@@ -1,12 +1,23 @@
 const Joi = require("@hapi/joi");
+const { companyValues } = require("./companyValidation");
 
 const registerValidation = (body) => {
-  const schema = Joi.object({
+  const userValues = Joi.object().keys({
     name: Joi.string().max(50).min(6).required(),
     email: Joi.string().max(100).min(6).required().email(),
     password: Joi.string().max(100).min(8).required(),
-    roleId: Joi.string(),
   });
+
+  const schema = Joi.object(
+    body.company
+      ? {
+          user: userValues.required(),
+          company: companyValues,
+        }
+      : {
+          user: userValues.required(),
+        }
+  );
   return schema.validate(body);
 };
 

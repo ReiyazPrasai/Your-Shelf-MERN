@@ -13,6 +13,7 @@ module.exports.addRoleCallback = async (req, res) => {
   const role = new Role({
     groupId: req.body.groupId,
     roles: req.body.roles,
+    companyId: req.user.companyId
   });
   const savedRole = await role.save();
   res.status(200).json(onSuccess(200, savedRole, "SuccessFully Added"));

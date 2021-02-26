@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 var nodemailer = require("nodemailer");
+const Company = require("../models/Company");
 
 const User = require("../models/User");
 const { onSuccess, onFailure } = require("../utils/responseDataStructure");
@@ -17,51 +18,61 @@ var transporter = nodemailer.createTransport({
   },
 });
 
+const sendMail = async (req, res) => {
+  const savedCompany = await req.company.save();
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(req.body.user.password, salt);
+  const user = new User({
+    name: req.body.user.name,
+    email: req.body.user.email,
+    password: hashPassword,
+    companyId: savedCompany._id,
+  });
+  try {
+    jwt.sign(
+      { userId: user._id, companyId: savedCompany._id },
+      process.env.TOKEN_SECRET,
+      {
+        expiresIn: "1d",
+      },
+      (err, emailToken) => {
+        const url = `http://localhost:8000/api/user/confirmation/${emailToken}`;
+        const mailOptions = {
+          from: process.env.MY_EMAIL_ADDRESS,
+          to: req.body.user.email,
+          subject: "Activate you email",
+          html: `Please click the button to activate you email: <a href="${url}">Click here</a>`,
+        };
+        if (err) {
+        } else {
+          transporter.sendMail(mailOptions);
+        }
+      }
+    );
+    const savedUser = await user.save();
+    res
+      .status(201)
+      .send(onSuccess(201, { user: savedUser, company: savedCompany }));
+  } catch (err) {
+    res.status(400).send(onFailure(400, err));
+  }
+};
+
 module.exports.registerCallback = async (req, res) => {
   const { error } = registerValidation(req.body);
   if (error)
     return res.status(400).send(onFailure(400, error.details[0].message));
+  const emailExists = await User.findOne({ email: req.body.user.email });
 
-  const emailExists = await User.findOne({ email: req.body.email });
   if (emailExists) {
-    if (emailExists.isConfirmed)
+    if (emailExists.isConfirmed) {
       return res.status(400).send(onFailure(400, "Email already exists"));
-    else {
+    } else {
       emailExists.remove();
-      const salt = await bcrypt.genSalt(10);
-      const hashPassword = await bcrypt.hash(req.body.password, salt);
-      const user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: hashPassword,
-      });
-      try {
-        jwt.sign(
-          { _id: user._id },
-          process.env.TOKEN_SECRET,
-          {
-            expiresIn: "1d",
-          },
-          (err, emailToken) => {
-            const url = `http://localhost:8000/api/user/confirmation/${emailToken}`;
-            const mailOptions = {
-              from: process.env.MY_EMAIL_ADDRESS,
-              to: req.body.email,
-              subject: "Activate you email",
-              html: `Please click the button to activate you email: <a href="${url}">Click here</a>`,
-            };
-            if (err) {
-            } else {
-              transporter.sendMail(mailOptions);
-            }
-          }
-        );
-        const savedUser = await user.save();
-        res.status(201).send(onSuccess(201, savedUser));
-      } catch (err) {
-        res.status(400).send(onFailure(400, err));
-      }
+      sendMail(req, res);
     }
+  } else {
+    sendMail(req, res);
   }
 };
 
@@ -83,8 +94,9 @@ module.exports.loginCallback = async (req, res) => {
   const responseData = {
     _id: user._id,
     email: user.email,
-    userType: user.userType,
     name: user.name,
+    companyId: user.companyId,
+    roleId: user.roleId,
   };
   const token = jwt.sign(responseData, process.env.TOKEN_SECRET, {
     expiresIn: "30m",
@@ -134,12 +146,22 @@ module.exports.userInfoCallback = async (req, res) => {
 module.exports.confirmationCallback = async (req, res) => {
   try {
     const user = jwt.verify(req.params.token, process.env.TOKEN_SECRET);
-    await User.findById(user._id).then(async (user) => {
-      user.isConfirmed = true;
-      await user.save();
-      return res.redirect("http://localhost:3000");
+    console.log(user);
+
+    await Company.findById(user.companyId).then(async (company) => {
+      company.isApproved = true;
+      await company.save();
+      await User.findById(user.userId).then(async (user) => {
+        user.isConfirmed = true;
+        user.roleId = "owner";
+        user.groupId = "owner";
+        user.companyId = company._id;
+        await user.save();
+        return res.redirect("http://localhost:3000");
+      });
     });
   } catch (error) {
+    console.log(error)
     res.status(400).send(onFailure(400, "Invalid token"));
   }
 };

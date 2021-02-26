@@ -26,6 +26,7 @@ module.exports.addCategoryCallback = async (req, res) => {
       categoryId: saveCategory._id,
       name: subCategory.name,
       isActive: subCategory.isActive,
+      companyId: req.user.companyId
     });
     saveSubCategory.save();
   });

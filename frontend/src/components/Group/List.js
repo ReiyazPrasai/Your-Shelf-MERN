@@ -74,6 +74,28 @@ const List = (props) => {
       ),
     },
     {
+      title: "Approval Status",
+      dataIndex: "isApproved",
+      key: "isApproved",
+      sorter: (a, b) => a.isApproved - b.isApproved,
+      sortOrder: sortedInfo.columnKey === "isApproved" && sortedInfo.order,
+      render: (text, record) => {
+        return text === undefined ? (
+          <b style={{ color: "grey" }}>
+            <QuestionCircleFilled /> Pending
+          </b>
+        ) : text ? (
+          <b style={{ color: "#00ff00" }}>
+            <CheckCircleFilled /> Approved
+          </b>
+        ) : (
+          <b style={{ color: "orangered" }}>
+            <CloseCircleFilled /> Disapproved
+          </b>
+        );
+      },
+    },
+    {
       title: "Active Status",
       dataIndex: "isActive",
       key: "isActive",
@@ -114,12 +136,12 @@ const List = (props) => {
   ];
 
   useEffect(() => {
-    if (!props.brandLoading) {
+    if (!props.groupLoading) {
       setDatasource(
-        props.brands?.map((brand) => ({ ...brand, key: brand._id }))
+        props.groups?.map((brand) => ({ ...brand, key: brand._id }))
       );
     }
-  }, [props.brands, props.brandLoading]);
+  }, [props.groups, props.groupLoading]);
 
   return (
     <Form form={form} layout="vertical">
@@ -141,7 +163,7 @@ const List = (props) => {
             onChange={handleChange}
             dataSource={datasource}
             scroll={{ x: 500 }}
-            loading={props.brandLoading}
+            loading={props.groupLoading}
             columns={getColumns(columns)}
             bordered
             pagination={

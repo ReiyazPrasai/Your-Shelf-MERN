@@ -18,13 +18,15 @@ const userSchema = new mongoose.Schema({
     max: 100,
     min: 8,
   },
-  userType: {
-    type: Number,
-    default: 2,
+  groupId: {
+    type: String,
+  },
+  companyId:{
+    type: String,
+    default: null,
   },
   roleId: {
     type: String,
-    required: true,
   },
   isConfirmed: {
     type: Boolean,

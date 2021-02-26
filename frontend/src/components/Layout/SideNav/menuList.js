@@ -149,9 +149,17 @@ const menuList = [
       </div>
     ),
     id: "/groups",
-    to: "#",
-
     subMenu: [
+      {
+        label: "Manage",
+        icon: (
+          <div className="menu-icon-wrapper" style={{ background: "#bcb910" }}>
+            <FontAwesomeIcon icon={faPencilRuler} />
+          </div>
+        ),
+        to: "/groups/manage",
+        id: "/groups/manage",
+      },
       {
         label: "Roles",
         icon: (
@@ -161,15 +169,6 @@ const menuList = [
         ),
         to: "/groups/roles",
         id: "/groups/roles",
-      },
-      {
-        label: "Users",
-        icon: (
-          <div className="menu-icon-wrapper" style={{ background: "#bcb910" }}>
-            <FontAwesomeIcon icon={faUser} />
-          </div>
-        ),
-        id: "/groups/users",
       },
     ],
   },

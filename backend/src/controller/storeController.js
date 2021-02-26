@@ -16,6 +16,7 @@ module.exports.addStoreCallback = async (req, res) => {
     city: req.body.city,
     contactNumber: req.body.contactNumber,
     isActive: req.body.isActive,
+    companyId: req.user.companyId
   });
   const savedStore = await store.save();
   res.status(200).json(onSuccess(200, savedStore, "SuccessFully Added"));

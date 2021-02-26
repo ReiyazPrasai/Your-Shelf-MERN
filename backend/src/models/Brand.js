@@ -13,6 +13,10 @@ const brandSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  companyId: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

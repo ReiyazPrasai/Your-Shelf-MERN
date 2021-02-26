@@ -12,6 +12,7 @@ module.exports = (req, res, next) => {
       for (const key in searchQuery.searchBy) {
         if (searchQuery.searchBy[key] !== undefined) {
           req.searchBy = {
+            companyId: req.user.companyId,
             ...req.searchBy,
             [key]:
               typeof searchQuery.searchBy[key] !== "boolean" && key !== "_id"
@@ -30,6 +31,10 @@ module.exports = (req, res, next) => {
           };
         }
       }
+    } else {
+      req.searchBy = {
+        companyId: req.user.companyId,
+      };
     }
     if (sortQuery) {
       req.sortBy = {

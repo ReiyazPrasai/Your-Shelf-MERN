@@ -1,6 +1,5 @@
 .auth-layout {
   height: 100vh !important;
-  min-height: 600px;
   width: 100%;
   background: #153a30;
   overflow: auto;
