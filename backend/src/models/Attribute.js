@@ -48,6 +48,10 @@ const attributeSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  companyId: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Attribute", attributeSchema);

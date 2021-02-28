@@ -1,14 +1,17 @@
-import React from "react"
-import { Redirect, Route } from "react-router-dom"
+import React, { useContext } from "react";
 
-import { isAllowed } from "../utils/permissionUtil"
+import { Redirect, Route } from "react-router-dom";
+
+import { AuthContext } from "../components/Context/AuthContext";
+import { isAllowed } from "../utils/permissionUtil";
 
 const Authorization = ({ component: Component, rights, ...rest }) => {
+  const { user } = useContext(AuthContext);
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (!isAllowed(rights)) {
+        if (!isAllowed(user.roles, rights)) {
           return (
             <Redirect
               to={{
@@ -16,12 +19,12 @@ const Authorization = ({ component: Component, rights, ...rest }) => {
                 state: { from: props.location },
               }}
             />
-          )
+          );
         }
-        return <Component {...props} />
+        return <Component {...props} />;
       }}
     />
-  )
-}
+  );
+};
 
-export default Authorization
+export default Authorization;

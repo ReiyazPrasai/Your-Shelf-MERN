@@ -18,6 +18,7 @@ module.exports.addCategoryCallback = async (req, res) => {
   const category = new Category({
     name: req.body.name,
     isActive: req.body.isActive,
+    companyId: req.user.companyId
   });
   const saveCategory = await category.save();
 

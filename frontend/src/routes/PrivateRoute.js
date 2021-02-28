@@ -1,7 +1,7 @@
 import React, { Suspense, useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { AuthContext } from "../components/Context/AuthContext";
+import  {AuthContext}  from "../components/Context/AuthContext";
 
 const PrivateRoute = ({ component: Component, layout: Layout, ...rest }) => {
   const { user, pageLoading } = useContext(AuthContext);

@@ -1,14 +1,16 @@
 import { Form, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  CloseCircleFilled,
-  CheckCircleFilled,
-  QuestionCircleFilled,
-} from "@ant-design/icons";
 
-import { Card, DeleteButton, Input, Switch } from "../Common/Elements";
+import {
+  Card,
+  DeleteButton,
+  EditButton,
+  Input,
+  Switch,
+} from "../Common/Elements";
 import { components, getColumns } from "../Common/EditableCell.js";
 import ListTop from "./ListTop";
+import history from "../../utils/historyUtil";
 
 const List = (props) => {
   const [form] = Form.useForm();
@@ -19,12 +21,18 @@ const List = (props) => {
   const handleSubmit = (e, record, field) => {
     if (e !== undefined && e !== record[field]) {
       props
-        .editBrand(
-          { name: record.name, isActive: record.isActive, [field]: e },
+        .editRole(
+          {
+            name: record.name,
+            isActive: record.isActive,
+            roles: record.roles,
+            groupId: record.groupId,
+            [field]: e,
+          },
           record._id
         )
         .then(() => {
-          props.fetchBrandList();
+          props.fetchRoleList();
         });
     }
     form.resetFields();
@@ -44,12 +52,12 @@ const List = (props) => {
       : [...listQuery.filter((item) => item.action !== "sort")];
     setListQuery(query);
 
-    props.fetchBrandList(query);
+    props.fetchRoleList(query);
   };
 
   const columns = [
     {
-      title: "Brand Name",
+      title: "Role Name",
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name - b.name,
@@ -57,7 +65,7 @@ const List = (props) => {
       editable: true,
       editComponent: (text, record, toggleEdit) => (
         <Input
-          name={["brand", record._id, "name"]}
+          name={["Role", record._id, "name"]}
           formstyle={{ margin: 0 }}
           hideLabel
           autoFocus
@@ -74,25 +82,13 @@ const List = (props) => {
       ),
     },
     {
-      title: "Approval Status",
-      dataIndex: "isApproved",
-      key: "isApproved",
-      sorter: (a, b) => a.isApproved - b.isApproved,
-      sortOrder: sortedInfo.columnKey === "isApproved" && sortedInfo.order,
+      title: "Group Name",
+      dataIndex: "groupId",
+      key: "name",
+      sorter: (a, b) => a.name - b.name,
+      sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
       render: (text, record) => {
-        return text === undefined ? (
-          <b style={{ color: "grey" }}>
-            <QuestionCircleFilled /> Pending
-          </b>
-        ) : text ? (
-          <b style={{ color: "#00ff00" }}>
-            <CheckCircleFilled /> Approved
-          </b>
-        ) : (
-          <b style={{ color: "orangered" }}>
-            <CloseCircleFilled /> Disapproved
-          </b>
-        );
+        return <div>{props.groups?.find(({ _id }) => _id === text)?.name}</div>;
       },
     },
     {
@@ -118,14 +114,22 @@ const List = (props) => {
     },
     {
       title: "Action",
-      width: 75,
+      width: 120,
       render: (text, record) => {
         return (
-          <div className="centralize">
+          <div
+            className="centralize"
+            style={{ justifyContent: "space-around" }}
+          >
+            <EditButton
+              onClick={() => {
+                history.push(`/manage/roles/${record._id}/edit`);
+              }}
+            />
             <DeleteButton
               onClick={() => {
-                props.deleteBrand(record._id).then(() => {
-                  props.fetchBrandList();
+                props.deleteRole(record._id).then(() => {
+                  props.fetchRoleList();
                 });
               }}
             />
@@ -136,12 +140,12 @@ const List = (props) => {
   ];
 
   useEffect(() => {
-    if (!props.groupLoading) {
+    if (!props.rolesLoading) {
       setDatasource(
-        props.groups?.map((brand) => ({ ...brand, key: brand._id }))
+        props.roles?.map((brand) => ({ ...brand, key: brand._id }))
       );
     }
-  }, [props.groups, props.groupLoading]);
+  }, [props.roles, props.rolesLoading]);
 
   return (
     <Form form={form} layout="vertical">

@@ -63,12 +63,16 @@ const financeSchema = new mongoose.Schema({
   discount: {
     type: discountSchema,
   },
+  message: {
+    type: String,
+    max: 200,
+  },
 });
 
 const companySchema = new mongoose.Schema({
   basic: {
     type: basicSchema,
-    reqired: true
+    reqired: true,
   },
   finance: {
     type: financeSchema,

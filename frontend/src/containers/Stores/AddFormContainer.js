@@ -14,7 +14,9 @@ export const AddFormContainer = (props) => {
   return <MainAddForm addNewStore={storeService.addNewStore} {...props} />;
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  userInfo: state.userInfo.payload
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

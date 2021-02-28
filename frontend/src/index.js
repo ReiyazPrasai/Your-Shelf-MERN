@@ -4,14 +4,13 @@ import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
 
-
 import App from "./containers/App";
 import configureStore from "./store/configureStore";
 import reportWebVitals from "./reportWebVitals";
-import { AuthProvider } from "./components/Context/AuthContext";
+import AuthProvider from "./components/Context/AuthContext";
 import history from "./utils/historyUtil";
 
-if(true){
+if (true) {
   import("./styles/normalize.less");
 }
 

@@ -41,6 +41,7 @@ const mapStateToProps = (state) => ({
   groups: state.groups.payload,
   groupLoading: state.groups.loading,
   groupError: state.groups.error,
+  userInfo: state.userInfo.payload
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -13,7 +13,9 @@ export const EditFormContainer = (props) => {
   return <MainEditForm {...props} />;
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  userInfo: state.userInfo.payload
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

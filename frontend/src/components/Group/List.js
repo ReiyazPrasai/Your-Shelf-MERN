@@ -19,12 +19,12 @@ const List = (props) => {
   const handleSubmit = (e, record, field) => {
     if (e !== undefined && e !== record[field]) {
       props
-        .editBrand(
+        .editGroup(
           { name: record.name, isActive: record.isActive, [field]: e },
           record._id
         )
         .then(() => {
-          props.fetchBrandList();
+          props.fetchGroupList();
         });
     }
     form.resetFields();
@@ -44,12 +44,12 @@ const List = (props) => {
       : [...listQuery.filter((item) => item.action !== "sort")];
     setListQuery(query);
 
-    props.fetchBrandList(query);
+    props.fetchGroupList(query);
   };
 
   const columns = [
     {
-      title: "Brand Name",
+      title: "Group Name",
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name - b.name,
@@ -124,8 +124,8 @@ const List = (props) => {
           <div className="centralize">
             <DeleteButton
               onClick={() => {
-                props.deleteBrand(record._id).then(() => {
-                  props.fetchBrandList();
+                props.deleteGroup(record._id).then(() => {
+                  props.fetchGroupList();
                 });
               }}
             />

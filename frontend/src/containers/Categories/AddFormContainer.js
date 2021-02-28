@@ -14,7 +14,9 @@ export const AddFormContainer = (props) => {
   return <MainAddForm addNewCategory={categoryService.addNewCategory} {...props} />;
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  userInfo: state.userInfo.payload
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {

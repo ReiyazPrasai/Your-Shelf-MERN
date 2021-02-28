@@ -7,9 +7,11 @@ const {
   getRoleCallback,
   updateRoleCallback,
   deleteByIdRoleCallback,
+  getByIdRoleCallback
 } = require("../controller/roleController");
 
 router.get("/", verifyToken, handleQuery, getRoleCallback);
+router.get("/:id", verifyToken, getByIdRoleCallback);
 router.post("/add", verifyToken, addRoleCallback);
 router.put("/edit/:id", verifyToken, updateRoleCallback);
 router.delete("/delete/:id", verifyToken, deleteByIdRoleCallback);

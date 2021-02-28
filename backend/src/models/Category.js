@@ -17,6 +17,10 @@ const categorySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  companyId: {
+    type: String,
+    required: true,
+  },
 });
 
 const subCategorySchema = new mongoose.Schema({
@@ -35,6 +39,10 @@ const subCategorySchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  companyId: {
+    type: String,
+    required: true,
   },
 });
 

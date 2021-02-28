@@ -9,7 +9,12 @@ const SideNav = (props) => {
   return (
     <div className={"side-nav-wrapper"}>
       <Logo {...props} />
-      <div className="compose">
+      <div
+        onClick={() => {
+          props.setIsAddProduct(true);
+        }}
+        className="compose"
+      >
         <PlusOutlined /> {!props.isCollapsed && "Add Product"}
       </div>
 

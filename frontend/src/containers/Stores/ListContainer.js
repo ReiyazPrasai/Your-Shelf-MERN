@@ -41,6 +41,7 @@ const mapStateToProps = (state) => ({
   stores: state.stores.payload,
   storeLoading: state.stores.loading,
   storeError: state.stores.error,
+  userInfo: state.userInfo.payload
 });
 
 const mapDispatchToProps = (dispatch) => {

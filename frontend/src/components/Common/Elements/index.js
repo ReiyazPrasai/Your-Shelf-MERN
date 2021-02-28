@@ -11,6 +11,7 @@ import {
   Spin,
   Skeleton,
   Popconfirm,
+  Modal,
 } from "antd";
 import {
   LockOutlined,
@@ -19,6 +20,7 @@ import {
   SearchOutlined,
   UndoOutlined,
   DeleteOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 
 import "./elements.css";
@@ -530,10 +532,39 @@ export const DeleteButton = (props) => {
   );
 };
 
+export const EditButton = (props) => {
+  return (
+    <AntButton
+      hideLabel
+      formstyle={{ margin: 0 }}
+      className="edit-btn"
+      style={{ height: 32, width: 32 }}
+      onClick={props.onClick}
+    >
+      <EditOutlined style={{ fontWeight: "bold", color: "white" }} />
+    </AntButton>
+  );
+};
+
+const AntModal = (props) => {
+  return (
+    <Modal
+      {...props}
+      centered
+      closable={props.isClosable || false}
+      footer={props.footer || null}
+      title={props.title || null}
+    >
+      {props.children}
+    </Modal>
+  );
+};
+
 export {
   AntInput as Input,
   AntButton as Button,
   AntSwitch as Switch,
   AntSelect as Select,
+  AntModal as Modal,
 };
 export default Form;

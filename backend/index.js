@@ -23,6 +23,7 @@ const categoryRoute = require("./src/routes/categoryRoute");
 const attributeRoute = require("./src/routes/attributeRoute");
 const groupRoute = require("./src/routes/groupRoute");
 const roleRoute = require("./src/routes/roleRoute");
+const companyRoute = require("./src/routes/companyRoute");
 
 // Routes middleware here
 app.use("/api/user", authRoute);
@@ -32,6 +33,7 @@ app.use("/api/category", categoryRoute);
 app.use("/api/attribute", attributeRoute);
 app.use("/api/group", groupRoute);
 app.use("/api/role", roleRoute);
+app.use("/api/company", companyRoute);
 
 // Connect to DB
 mongoose

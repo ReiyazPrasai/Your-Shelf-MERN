@@ -28,7 +28,7 @@ const menuList = [
     to: "/dashboard",
   },
   {
-    label: "My Collection",
+    label: "Products",
     icon: (
       <div className="menu-icon-wrapper" style={{ background: "#F68C02" }}>
         <FontAwesomeIcon icon={faDatabase} />
@@ -125,7 +125,7 @@ const menuList = [
         icon: (
           <div className="menu-icon-wrapper" style={{ background: "#1069bc" }}>
             <FontAwesomeIcon icon={faPencilRuler} />
-          </div>
+          </div> 
         ),
         to: "/stores/manage",
         id: "/stores/manage",
@@ -142,23 +142,23 @@ const menuList = [
     ],
   },
   {
-    label: "Groups",
+    label: "Manage",
     icon: (
       <div className="menu-icon-wrapper" style={{ background: "#ce0d0d" }}>
-        <FontAwesomeIcon icon={faUsers} />
+        <FontAwesomeIcon icon={faPencilRuler} />
       </div>
     ),
-    id: "/groups",
+    id: "/manage",
     subMenu: [
       {
-        label: "Manage",
+        label: "Groups",
         icon: (
           <div className="menu-icon-wrapper" style={{ background: "#bcb910" }}>
-            <FontAwesomeIcon icon={faPencilRuler} />
+            <FontAwesomeIcon icon={faUsers} />
           </div>
         ),
-        to: "/groups/manage",
-        id: "/groups/manage",
+        to: "/manage/groups",
+        id: "/manage/groups",
       },
       {
         label: "Roles",
@@ -167,10 +167,20 @@ const menuList = [
             <FontAwesomeIcon icon={faClipboard} />
           </div>
         ),
-        to: "/groups/roles",
-        id: "/groups/roles",
+        to: "/manage/roles",
+        id: "/manage/roles",
       },
     ],
+  },
+  {
+    label: "Users",
+    icon: (
+      <div className="menu-icon-wrapper" style={{ background: "#1069BC" }}>
+        <FontAwesomeIcon icon={faUser} />
+      </div>
+    ),
+    id: "/users",
+    to: "/users",
   },
 ];
 

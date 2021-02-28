@@ -38,6 +38,7 @@ export const ListContainer = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  userInfo: state.userInfo.payload,
   brands: state.brands.payload,
   brandLoading: state.brands.loading,
   brandError: state.brands.error,

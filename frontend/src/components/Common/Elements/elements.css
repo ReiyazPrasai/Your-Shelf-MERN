@@ -70,7 +70,9 @@
 .clear-search-btn,
 .clear-search-btn:focus,
 .delete-btn,
-.delete-btn:focus {
+.delete-btn:focus,
+.edit-btn,
+.edit-btn:focus {
   padding-top: 5px;
   height: 32px;
 
@@ -98,6 +100,13 @@
   min-width: 32px !important;
 }
 
+.edit-btn,
+.edit-btn:focus {
+  background: #5EAD15;
+  border: none;
+  min-width: 32px !important;
+}
+
 .delete-btn,
 .delete-btn:focus {
   background: #f6020e;
@@ -107,6 +116,7 @@
 
 .search-btn:hover,
 .delete-btn:hover,
+.edit-btn:hover,
 .clear-search-btn:hover {
   border: none;
 }
@@ -123,4 +133,8 @@
 
 .delete-btn:hover {
   background: #f6020ec5;
+}
+
+.edit-btn:hover {
+  background: #5EAD15CF;
 }

@@ -11,9 +11,17 @@ const {
   forgotPasswordCallback,
   resetPasswordCallback,
   resetPasswordRedirectCallback,
+  getUserCallback,
 } = require("../controller/authController");
+const { companyRegisterCallback } = require("../controller/companyController");
 
-router.post("/register", registerCallback);
+router.get("/", verifyToken, handleQuery, getUserCallback);
+router.post(
+  "/register",
+  companyRegisterCallback,
+  verifyToken,
+  registerCallback
+);
 router.post("/login", loginCallback);
 router.get("/logout", verifyToken, logoutCallback);
 router.get("/info", userInfoCallback);

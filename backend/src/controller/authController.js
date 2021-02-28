@@ -19,18 +19,20 @@ var transporter = nodemailer.createTransport({
 });
 
 const sendMail = async (req, res) => {
-  const savedCompany = await req.company.save();
+  const savedCompany = (await req.company) ? req.company.save() : null;
   const salt = await bcrypt.genSalt(10);
   const hashPassword = await bcrypt.hash(req.body.user.password, salt);
   const user = new User({
-    name: req.body.user.name,
-    email: req.body.user.email,
+    ...req.body.user,
     password: hashPassword,
-    companyId: savedCompany._id,
+    companyId: savedCompany ? savedCompany._id : req.user.companyId,
   });
   try {
     jwt.sign(
-      { userId: user._id, companyId: savedCompany._id },
+      {
+        userId: user._id,
+        companyId: savedCompany ? savedCompany._id : req.user.companyId,
+      },
       process.env.TOKEN_SECRET,
       {
         expiresIn: "1d",
@@ -54,6 +56,7 @@ const sendMail = async (req, res) => {
       .status(201)
       .send(onSuccess(201, { user: savedUser, company: savedCompany }));
   } catch (err) {
+    console.log(err);
     res.status(400).send(onFailure(400, err));
   }
 };
@@ -73,6 +76,31 @@ module.exports.registerCallback = async (req, res) => {
     }
   } else {
     sendMail(req, res);
+  }
+};
+
+module.exports.getUserCallback = async (req, res) => {
+  try {
+    if (req.searchBy) {
+      const user = await User.find(req.searchBy)
+        .sort(req.sortBy)
+        .sort({ createdAt: -1 });
+      const responseData = user.map(item=>({
+        name: item.name,
+        email: item.email,
+        groupName: item.groupName,
+        groupId: item.groupId,
+        roleId: item.roleId,
+        isActive: item.isActive,
+        isConfirmed: item.isConfirmed,
+      }));
+      console.log(responseData, user);
+      res
+        .status(200)
+        .json(onSuccess(200, responseData, "SuccessFully Fetched"));
+    }
+  } catch (err) {
+    return res.status(400).send(onFailure(400, "Could not fetch user"));
   }
 };
 
@@ -96,8 +124,9 @@ module.exports.loginCallback = async (req, res) => {
     email: user.email,
     name: user.name,
     companyId: user.companyId,
-    roleId: user.roleId,
+    roles: user.roles,
   };
+  console.log(responseData)
   const token = jwt.sign(responseData, process.env.TOKEN_SECRET, {
     expiresIn: "30m",
   });
@@ -153,15 +182,13 @@ module.exports.confirmationCallback = async (req, res) => {
       await company.save();
       await User.findById(user.userId).then(async (user) => {
         user.isConfirmed = true;
-        user.roleId = "owner";
-        user.groupId = "owner";
         user.companyId = company._id;
         await user.save();
         return res.redirect("http://localhost:3000");
       });
     });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(400).send(onFailure(400, "Invalid token"));
   }
 };

@@ -34,7 +34,7 @@ const MainAddForm = (props) => {
         <Card
           onSave={handleSubmit}
           onCancel={handelCancel}
-          to="/features/brands"
+          to="/manage/grouops"
           status
           isActive={true}
           style={{ width: "500px", padding: 20, margin: "auto" }}
@@ -57,7 +57,7 @@ const MainAddForm = (props) => {
             >
               <h4>Select Allowed Module</h4>
               {getModuleList().map((item) => {
-                return (
+                return item.label!=='Dashboard'&& (
                   <div
                     key={item.id}
                     style={{

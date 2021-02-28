@@ -4,7 +4,7 @@ import { getQuery } from "../../utils/commonUtils";
 import { Button, Input, SearchButton, Select } from "../Common/Elements";
 
 const ListTop = (props) => {
-  const { setListQuery, listQuery, fetchBrandList } = props;
+  const { setListQuery, listQuery, fetchRoleList } = props;
   const isClearSearch = !!listQuery.find((item) => item.action === "search");
 
   const activeStatus = [
@@ -32,20 +32,20 @@ const ListTop = (props) => {
       formData.isApproved === false
     ) {
       setListQuery(getQuery(formData, listQuery));
-      fetchBrandList(getQuery(formData, listQuery));
+      fetchRoleList(getQuery(formData, listQuery));
     }
   };
 
   const handleClearSearch = () => {
     props.form.resetFields();
     setListQuery(listQuery.filter((item) => item.action === "sort"));
-    fetchBrandList();
+    fetchRoleList();
   };
 
   return (
     <Row gutter={8}>
       <Col xxl={8} xl={7} lg={6} md={12} sm={12} xs={24}>
-        <Input name="name" label="Group Name" />
+        <Input name="name" label="Role Name" />
       </Col>
 
       <Col xxl={4} xl={5} lg={5} md={12} sm={12} xs={24}>
@@ -96,9 +96,9 @@ const ListTop = (props) => {
             <Button
               style={{ float: "right", width: "100%" }}
               type="primary"
-              to="/groups/add"
+              to="/manage/roles/add"
             >
-              Add Group
+              Add Role
             </Button>
           </Col>
         </Row>

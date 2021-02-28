@@ -53,6 +53,7 @@ const mapStateToProps = (state) => ({
   subCategories: state.subCategories.payload,
   subCategoriesLoading: state.subCategories.loading,
   subCategoriesError: state.subCategories.error,
+  userInfo: state.userInfo.payload
 });
 
 const mapDispatchToProps = (dispatch) => {

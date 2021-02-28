@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { Input, Password } from "../../Common/Elements";
 
 import "../auth.css";
-import { AuthContext } from "../../Context/AuthContext";
 import { Col, Row } from "antd";
-import { formatCountdown } from "antd/lib/statistic/utils";
 
 const PartnerInformation = (props) => {
   const [password, setPassword] = useState(null);
@@ -45,9 +43,10 @@ const PartnerInformation = (props) => {
               labelcolor={"white"}
               onChange={(e) => {
                 setPassword(e.target.value);
-                props.form.validateFields(["confirmPassword"], {
-                  force: true,
-                });
+                props.form.getFieldValue("confirmPassword") &&
+                  props.form.validateFields(["confirmPassword"], {
+                    force: true,
+                  });
               }}
               validate
             />

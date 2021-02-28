@@ -32,7 +32,7 @@ export const addNewGroup = (formData) => {
   return post(`api/group/add`, formData)
     .then(() => {
       //   Notification("Success!", `Group has been added successfully!`, "success")
-      history.push("/groups");
+      history.push("/manage/groups");
     })
     .catch((err) => {
       // Notification("Error!", "Something went wrong!", "error");

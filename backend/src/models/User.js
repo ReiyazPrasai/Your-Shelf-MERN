@@ -21,12 +21,22 @@ const userSchema = new mongoose.Schema({
   groupId: {
     type: String,
   },
-  companyId:{
+  groupName: {
+    type: String,
+  },
+  companyId: {
     type: String,
     default: null,
   },
   roleId: {
     type: String,
+  },
+  roles: {
+    type: [String],
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
   },
   isConfirmed: {
     type: Boolean,

@@ -30,14 +30,14 @@ const MainAddForm = (props) => {
 
   return (
     <Form className={"full"} form={form} layout={"vertical"}>
-      <div style={{margin: 'auto', padding: 24}}>
+      <div style={{ margin: "auto", padding: 24 }}>
         <Card
           onSave={handleSubmit}
           onCancel={handelCancel}
           to="/features/categories"
           status
           isActive={true}
-          style={{ width: "500px", padding: 20, margin: '20px auto' }}
+          style={{ width: "500px", padding: 20, margin: "20px auto" }}
           black
           form={form}
         >

@@ -28,7 +28,7 @@ const Index = (props) => {
   const handleSubmit = () => {
     handleSignUp(formData);
   };
-
+console.log('formData', formData)
   const steps = [
     {
       title: "User",
@@ -66,11 +66,15 @@ const Index = (props) => {
     },
   ];
 
-  const next = () => {
+  const next = (index) => {
     form.validateFields().then((values) => {
+      if (current === 0) {
+        values.user.groupName = "Owner";
+        values.user.roles = ["All"];
+      }
       delete values.confirmPassword;
       setFormData({ ...formData, ...values });
-      setCurrent(current + 1);
+      !index ? setCurrent(current + 1) : setCurrent(index);
     });
   };
 
@@ -99,9 +103,7 @@ const Index = (props) => {
               description={step.description}
               icon={current === index ? <LoadingOutlined /> : step.icon}
               onClick={() => {
-                // form.validateFields().then((values) => {
-                setCurrent(index);
-                // })
+                next(index);
               }}
               style={{ cursor: "pointer" }}
             />

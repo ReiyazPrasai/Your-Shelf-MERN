@@ -2,24 +2,26 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import MainAddForm from "../../components/Roles/MainAddForm";
+import MainAddForm from "../../components/Group/MainAddForm";
 import * as reducerToolsAction from "../../actions/reducerToolsAction";
-import * as roleService from "../../services/roleService";
+import * as groupService from "../../services/groupService";
 
 export const AddFormContainer = (props) => {
   useEffect(() => {
-    props.actions.headingRequest("Add Roles");
+    props.actions.headingRequest("Add Groups");
   }, [props]);
 
-  return <MainAddForm addNewRole={roleService.addNewRole} {...props} />;
+  return <MainAddForm addNewGroup={groupService.addNewGroup} {...props} />;
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  userInfo: state.userInfo.payload
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(
-      Object.assign({}, reducerToolsAction, roleService),
+      Object.assign({}, reducerToolsAction, groupService),
       dispatch
     ),
   };

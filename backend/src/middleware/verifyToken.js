@@ -4,12 +4,15 @@ const { onFailure } = require("../utils/responseDataStructure");
 
 module.exports = (req, res, next) => {
   try {
-    const token = req.cookies.Authorization;
-    if (!token) return res.redirect(401, 'http://localhost:3000/#/auth/login');
-    const isVerified = jwt.verify(token, process.env.TOKEN_SECRET);
-    req.user = isVerified;
+    if (!req.company) {
+      const token = req.cookies.Authorization;
+      if (!token)
+        return res.redirect(401, "http://localhost:3000/#/auth/login");
+      const isVerified = jwt.verify(token, process.env.TOKEN_SECRET);
+      req.user = isVerified;
+    }
     next();
   } catch (err) {
-    res.redirect(401, 'http://localhost:3000/#/auth/login')
+    res.redirect(401, "http://localhost:3000/#/auth/login");
   }
 };

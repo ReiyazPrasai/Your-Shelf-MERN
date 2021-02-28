@@ -1,3 +1,4 @@
+const { string } = require("@hapi/joi");
 const mongoose = require("mongoose");
 
 const groupSchema = new mongoose.Schema({
@@ -13,6 +14,10 @@ const groupSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  companyId: {
+    type: String,
+    required: true,
   },
 });
 

@@ -4,7 +4,7 @@ import { getQuery } from "../../utils/commonUtils";
 import { Button, Input, SearchButton, Select } from "../Common/Elements";
 
 const ListTop = (props) => {
-  const { setListQuery, listQuery, fetchBrandList } = props;
+  const { setListQuery, listQuery, fetchGroupList } = props;
   const isClearSearch = !!listQuery.find((item) => item.action === "search");
 
   const activeStatus = [
@@ -32,14 +32,14 @@ const ListTop = (props) => {
       formData.isApproved === false
     ) {
       setListQuery(getQuery(formData, listQuery));
-      fetchBrandList(getQuery(formData, listQuery));
+      fetchGroupList(getQuery(formData, listQuery));
     }
   };
 
   const handleClearSearch = () => {
     props.form.resetFields();
     setListQuery(listQuery.filter((item) => item.action === "sort"));
-    fetchBrandList();
+    fetchGroupList();
   };
 
   return (
@@ -96,7 +96,7 @@ const ListTop = (props) => {
             <Button
               style={{ float: "right", width: "100%" }}
               type="primary"
-              to="/groups/add"
+              to="/manage/groups/add"
             >
               Add Group
             </Button>

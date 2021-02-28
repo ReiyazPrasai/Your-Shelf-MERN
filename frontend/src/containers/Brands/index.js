@@ -13,25 +13,13 @@ const Index = ({ match }) => (
       exact
       path={`${match.url}/add`}
       component={AddForm}
-      rights={[1, 2]}
+      rights={["/features/brands:_list"]}
     />
     <Authorization
       exact
       path={`${match.url}`}
       component={List}
-      rights={[1, 2]}
-    />
-    <Authorization
-      exact
-      path={`${match.url}/:id/view`}
-      component={View}
-      rights={[1, 2]}
-    />
-    <Authorization
-      exact
-      path={`${match.url}/:id/edit`}
-      component={EditForm}
-      rights={[1, 2]}
+      rights={["/features/brands:_add"]}
     />
   </ChildRoutes>
 );

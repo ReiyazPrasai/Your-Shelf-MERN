@@ -19,7 +19,7 @@ import {
     );
   };
   
-  export const fetcRoleById = (identifier) => {
+  export const fetchRoleById = (identifier) => {
     return get(
       FETCH_ROLE_BY_ID,
       FETCH_ROLE_BY_ID_SUCCESS,
@@ -32,7 +32,7 @@ import {
     return post(`api/role/add`, formData)
       .then(() => {
         //   Notification("Success!", `Role has been added successfully!`, "success")
-        history.push("/roles");
+        history.push("manage/roles");
       })
       .catch((err) => {
         // Notification("Error!", "Something went wrong!", "error");
@@ -40,7 +40,14 @@ import {
   };
   
   export const editRole = (formData, identifier) => {
-    return update(`api/role/edit/${identifier}`, formData);
+    return update(`api/role/edit/${identifier}`, formData)
+    // .then(() => {
+    //   //   Notification("Success!", `Role has been added successfully!`, "success")
+    //   history.push("manage/roles");
+    // })
+    // .catch((err) => {
+    //   // Notification("Error!", "Something went wrong!", "error");
+    // });
   };
   
   export const deleteRole = (identifier) => {

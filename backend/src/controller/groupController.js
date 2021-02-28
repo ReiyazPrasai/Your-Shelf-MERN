@@ -10,12 +10,14 @@ module.exports.addGroupCallback = async (req, res) => {
   const isGroup = await Group.findOne({ name: req.body.name });
   if (isGroup)
     return res.status(400).send(onFailure(400, "Group already exists"));
+
   const group = new Group({
     name: req.body.name,
     modules: req.body.modules,
     isActive: req.body.isActive,
     companyId: req.user.companyId
   });
+  console.log(group)
   const savedGroup = await group.save();
   res.status(200).json(onSuccess(200, savedGroup, "SuccessFully Added"));
 };

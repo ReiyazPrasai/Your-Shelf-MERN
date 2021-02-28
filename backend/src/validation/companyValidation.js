@@ -14,10 +14,11 @@ let discountValues = Joi.object().keys({
   validTo: Joi.date().required(),
 });
 let financeValues = Joi.object().keys({
-  specialDiscount: discountValues,
+  discount: discountValues,
   appCommission: Joi.number(),
   vat: Joi.number().required(),
-  allowedProfitMargin: Joi.number().required(),
+  allowedProfitMargin: Joi.number() || null,
+  message: Joi.string().max(200),
 });
 
 const companyValidation = (body) => {

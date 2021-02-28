@@ -14,6 +14,9 @@ import {
 import { attributeListReducer } from "./attributeReducer";
 import { groupByIdReducer, groupListReducer } from "./groupReducer";
 import { roleByIdReducer, roleListReducer } from "./roleReducer";
+import { userByIdReducer, userInfoReducer, userListReducer } from "./userReducer";
+import { companyByIdReducer, companyListReducer } from "./companyReducer";
+
 
 const appReducer = combineReducers({
   router: connectRouter(history),
@@ -33,6 +36,11 @@ const appReducer = combineReducers({
   group: groupByIdReducer,
   roles: roleListReducer,
   role: roleByIdReducer,
+  users: userListReducer,
+  user: userByIdReducer,
+  userInfo: userInfoReducer,
+  companies: companyListReducer,
+  company: companyByIdReducer
 });
 
 const rootReducer = (state, action) => {

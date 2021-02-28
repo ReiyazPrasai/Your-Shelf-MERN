@@ -17,7 +17,9 @@ const AsyncComponents = [
     [asyncComponent("Stores"), ["stores"], "private"],
     [asyncComponent("Attributes"), ["features/attributes"], "private"],
     [asyncComponent("Company"), ["company"], "private"],
-    [asyncComponent("Group"), ["groups"], "private"],
+    [asyncComponent("Group"), ["manage/groups"], "private"],
+    [asyncComponent("Roles"), ["manage/roles"], "private"],
+    [asyncComponent("Users"), ["users"], "private"],
   ],
 ];
 
