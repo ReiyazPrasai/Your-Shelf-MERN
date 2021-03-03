@@ -1,4 +1,5 @@
 import { Api } from "./apiUtil";
+import { message } from "antd";
 
 export const store = (apiRoute, formData, contentType) => {
   return Api(contentType).post(`/${apiRoute}`, formData);
@@ -49,12 +50,15 @@ export const get = (
     return fetch(api, params, contentType)
       .then((res) => {
         dispatch(requestSuccess(requestSuccessActionType, res?.data));
+
         return Promise.resolve(res?.data);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.status === 401) {
+          window.location.reload();
+        }
         dispatch(requestFailure(requestFailureActionType, err?.data));
-        return Promise.reject(err?.data);
+        return Promise.reject(err?.data?.data);
       });
   };
 };
@@ -65,7 +69,10 @@ export const post = async (api, params, contentType, noAuthorize) => {
       return Promise.resolve(res?.data);
     })
     .catch((err) => {
-      return Promise.reject(err?.data);
+      if (err.status === 401) {
+        window.location.reload();
+      }
+      return Promise.reject(err?.data?.data);
     });
 };
 
@@ -74,8 +81,12 @@ export const put = async (api, params, contentType, noAuthorize) => {
     .then((res) => {
       return Promise.resolve(res?.data);
     })
+
     .catch((err) => {
-      return Promise.reject(err?.data);
+      if (err.status === 401) {
+        window.location.reload();
+      }
+      return Promise.reject(err?.data?.data);
     });
 };
 
@@ -84,7 +95,11 @@ export const deleteData = async (api) => {
     .then((res) => {
       return Promise.resolve(res?.data);
     })
+
     .catch((err) => {
+      if (err.status === 401) {
+        window.location.reload();
+      }
       return Promise.reject(err?.data);
     });
 };

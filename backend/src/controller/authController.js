@@ -94,7 +94,6 @@ module.exports.getUserCallback = async (req, res) => {
         isActive: item.isActive,
         isConfirmed: item.isConfirmed,
       }));
-      console.log(responseData, user);
       res
         .status(200)
         .json(onSuccess(200, responseData, "SuccessFully Fetched"));
@@ -126,7 +125,6 @@ module.exports.loginCallback = async (req, res) => {
     companyId: user.companyId,
     roles: user.roles,
   };
-  console.log(responseData)
   const token = jwt.sign(responseData, process.env.TOKEN_SECRET, {
     expiresIn: "30m",
   });
@@ -158,7 +156,6 @@ module.exports.userInfoCallback = async (req, res) => {
       _id: userInfo._id,
       email: userInfo.email,
     });
-    // console.log(userInfo._id, user._id, userInfo.email, user.email);
     if (!user)
       return res
         .status(404)
@@ -175,8 +172,6 @@ module.exports.userInfoCallback = async (req, res) => {
 module.exports.confirmationCallback = async (req, res) => {
   try {
     const user = jwt.verify(req.params.token, process.env.TOKEN_SECRET);
-    console.log(user);
-
     await Company.findById(user.companyId).then(async (company) => {
       company.isApproved = true;
       await company.save();

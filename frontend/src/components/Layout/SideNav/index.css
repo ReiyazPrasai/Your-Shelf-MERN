@@ -14,7 +14,7 @@
 .menu-wrapper {
   color: rgba(255, 255, 255, 0.8) !important;
   flex: 1 1 auto;
-  /* overflow-y: auto; */
+  overflow-y: auto;
 }
 
 .menu-wrapper::-webkit-scrollbar {
@@ -109,8 +109,8 @@
   display: flex;
   align-items: center;
   flex: 1 1 auto;
-  font-size: 0.9rem;
-  padding-left: 16px;
+  font-size: 0.8rem;
+  padding-left: 20px;
 }
 .sub-menu-label {
   padding-left: 45px;
@@ -143,9 +143,9 @@
 
 .menu-icon-wrapper {
   border-radius: 3px;
-  width: 27px;
+  width: 22px;
   display: flex;
   justify-content: center;
-  height: 27px;
+  height: 22px;
   align-items: center;
 }

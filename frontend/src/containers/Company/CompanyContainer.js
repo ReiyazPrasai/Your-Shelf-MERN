@@ -16,7 +16,7 @@ export const CompanyCOntainer = (props) => {
   useEffect(() => {
     if (!isCalled) {
       
-      props.actions.fetcCompanyById(props.userInfo.companyId);
+      props.actions.fetchCompanyById(props.userInfo.companyId);
       setIsCalled(true);
     }
   }, [props.actions, props.userInfo, isCalled]);

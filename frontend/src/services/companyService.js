@@ -19,7 +19,7 @@ export const fetchCompanyList = (query) => {
   );
 };
 
-export const fetcCompanyById = (identifier) => {
+export const fetchCompanyById = (identifier) => {
   return get(
     FETCH_COMPANY_BY_ID,
     FETCH_COMPANY_BY_ID_SUCCESS,

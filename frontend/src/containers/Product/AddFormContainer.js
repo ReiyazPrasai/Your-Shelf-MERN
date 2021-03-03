@@ -7,10 +7,10 @@ import * as reducerToolsAction from "../../actions/reducerToolsAction";
 import * as categoryService from "../../services/categoryService";
 import * as attributeService from "../../services/attributeService";
 import * as brandService from "../../services/brandService";
+import * as productService from "../../services/productService";
 import * as companyService from "../../services/companyService";
 
 export const AddFormContainer = (props) => {
-  const [isCalled, setIsCalled] = useState(false);
   const searchQuery = useCallback(() => {
     return [{ action: "search", searchBy: { isActive: true } }];
   }, []);
@@ -28,16 +28,18 @@ export const AddFormContainer = (props) => {
   };
 
   useEffect(() => {
-    if (!isCalled) {
+    if (props.isAddProduct) {
       props.actions.fetchBrandList(searchQuery());
       props.actions.fetchCategoryList(searchQuery());
-      props.actions.fetcCompanyById(props.userInfo.companyId);
-      setIsCalled(true);
+      props.actions.fetchCompanyById(props.userInfo.companyId);
+      props.actions.fetchAttributeList(searchQuery());
     }
-  }, [props.actions, isCalled, searchQuery, props.userInfo]);
+  }, [props.actions, searchQuery, props.userInfo, props.isAddProduct]);
 
   return (
     <MainAddForm
+      searchQuery={searchQuery()}
+      addNewProduct={productService.addNewProduct}
       fetchAttributeList={fetchAttributeList}
       fetchCategoryList={fetchCategoryList}
       fetchSubCategoryList={fetchSubCategoryList}
@@ -74,7 +76,8 @@ const mapDispatchToProps = (dispatch) => {
         categoryService,
         attributeService,
         brandService,
-        companyService
+        companyService,
+        productService
       ),
       dispatch
     ),

@@ -1,4 +1,3 @@
-const { string } = require("@hapi/joi");
 const Joi = require("@hapi/joi");
 const { companyValues } = require("./companyValidation");
 

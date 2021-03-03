@@ -28,7 +28,7 @@ const Index = (props) => {
   const handleSubmit = () => {
     handleSignUp(formData);
   };
-console.log('formData', formData)
+  
   const steps = [
     {
       title: "User",
@@ -67,15 +67,27 @@ console.log('formData', formData)
   ];
 
   const next = (index) => {
-    form.validateFields().then((values) => {
-      if (current === 0) {
-        values.user.groupName = "Owner";
-        values.user.roles = ["All"];
-      }
-      delete values.confirmPassword;
-      setFormData({ ...formData, ...values });
-      !index ? setCurrent(current + 1) : setCurrent(index);
-    });
+    if (typeof index === "number" && current < steps.length) {
+      form.validateFields().then((values) => {
+        if (current === 0) {
+          values.user.groupName = "Owner";
+          values.user.roles = ["All"];
+        }
+        delete values.confirmPassword;
+        setFormData({ ...formData, ...values });
+        setCurrent(index);
+      });
+    } else {
+      form.validateFields().then((values) => {
+        if (current === 0) {
+          values.user.groupName = "Owner";
+          values.user.roles = ["All"];
+        }
+        delete values.confirmPassword;
+        setFormData({ ...formData, ...values });
+        setCurrent(current + 1);
+      });
+    }
   };
 
   const prev = () => {

@@ -160,7 +160,7 @@ const SubCategoryList = (props) => {
         ...values.subCategory.new,
         categoryId: expandedRowKeys[0],
       };
-      console.log("formData", formData);
+      
       props.addNewSubCategory(formData).then(() => {
         setIsEdit(null);
         props.fetchSubCategoryList(expandedRowKeys[0]).then((res) => {

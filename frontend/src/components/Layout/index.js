@@ -56,6 +56,7 @@ const Layout = (props) => {
 
         <Content>{props.children}</Content>
         <Modal
+          width={700}
           visible={isAddProduct}
           onCancel={() => {
             setIsAddProduct(false);
@@ -75,7 +76,7 @@ const Layout = (props) => {
                     marginRight: 8,
                   }}
                 >
-                  Active status:
+                  Active Status:
                 </span>
               </Col>
               <Col span={2}>
@@ -92,7 +93,11 @@ const Layout = (props) => {
             </Row>
           }
         >
-          <MainAddForm isActive={isActive} />
+          <MainAddForm
+            isActive={isActive}
+            isAddProduct={isAddProduct}
+            setIsAddProduct={setIsAddProduct}
+          />
         </Modal>
       </div>
     </div>

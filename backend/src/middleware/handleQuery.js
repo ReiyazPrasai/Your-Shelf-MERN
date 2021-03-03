@@ -48,6 +48,6 @@ module.exports = (req, res, next) => {
     next();
   } catch (err) {
     console.log(err);
-    return res.status(400).send(onFailure(400, "Could not fetch brand here"));
+    return res.status(400).send(onFailure(400, "Could not fetch data"));
   }
 };

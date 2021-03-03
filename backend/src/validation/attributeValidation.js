@@ -5,7 +5,7 @@ const attributeValidation = (body) => {
     name: Joi.string().max(50).min(4).required(),
     abbreviation: Joi.string().max(4).required(),
     isActive: Joi.boolean().required(),
-    _id: Joi.string().required(),
+    _id: Joi.string(),
   });
   let categoryIdList = Joi.object().keys({
     id: Joi.string().required(),

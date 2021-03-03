@@ -10,7 +10,6 @@ const MainAddForm = (props) => {
   const [moduleList, setModulelist] = useState(null);
   const [selectedGroup, setSelectedGroup] = useState({});
 
-  console.log(selectedRole);
   const handleSubmit = () => {
     form.validateFields().then((values) => {
       props.addNewRole({ ...values, roles: selectedRole });

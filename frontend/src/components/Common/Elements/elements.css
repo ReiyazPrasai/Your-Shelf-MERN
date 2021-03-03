@@ -1,6 +1,6 @@
 .ant-form-item-label
   > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
-  display: none;
+  display: none !important;
 }
 
 .card-white {
@@ -73,43 +73,43 @@
 .delete-btn:focus,
 .edit-btn,
 .edit-btn:focus {
-  padding-top: 5px;
-  height: 32px;
+  padding-top: 5px !important;
+  height: 32px !important;
 
-  color: white;
+  color: white !important;
 
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  border: none;
+  font-weight: bold !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 2px !important;
+  border: none !important;
 }
 
 .search-btn,
 .search-btn:focus {
-  background: #02a9f6;
+  background: #02a9f6 !important;
   border: none;
   min-width: 32px !important;
 }
 
 .clear-search-btn,
 .clear-search-btn:focus {
-  background: #f68c02;
+  background: #f68c02 !important;
   border: none;
   min-width: 32px !important;
 }
 
 .edit-btn,
 .edit-btn:focus {
-  background: #5EAD15;
+  background: #5ead15 !important;
   border: none;
   min-width: 32px !important;
 }
 
 .delete-btn,
 .delete-btn:focus {
-  background: #f6020e;
+  background: #f6020e !important;
   border: none;
   min-width: 32px !important;
 }
@@ -122,19 +122,19 @@
 }
 
 .clear-search-btn:hover {
-  background: #f68c02c5;
+  background: #f68c02c5 !important;
   border: none;
 }
 
 .search-btn:hover {
-  background: #02a9f6c5;
+  background: #02a9f6c5 !important;
   border: none;
 }
 
 .delete-btn:hover {
-  background: #f6020ec5;
+  background: #f6020ec5 !important;
 }
 
 .edit-btn:hover {
-  background: #5EAD15CF;
+  background: #5ead15cf !important;
 }

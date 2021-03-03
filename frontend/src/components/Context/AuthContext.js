@@ -41,6 +41,7 @@ const AuthProvider = (props) => {
       props.actions.userInfoRequest({ ...decoded, loggedIn: true });
       setUser({ ...decoded, loggedIn: true });
       history.push("/dashboard");
+      window.location.reload()
     });
   };
 

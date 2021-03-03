@@ -21,8 +21,7 @@ export const Api = (contentType = "application/json") => {
       return response;
     },
     (err) => {
-      console.log(err.response.data)
-      return Promise.reject(err.response.data);
+      return Promise.reject(err.response);
     }
   );
 

@@ -13,7 +13,6 @@ class EditableTable extends React.Component {
         width: "30%",
         editable: true,
         editComponent: (record, toggleEdit) => {
-          console.log(props);
           return (
             <Input
               autoFocus

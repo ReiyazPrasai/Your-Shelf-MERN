@@ -26,10 +26,6 @@ const MainAddForm = (props) => {
     setSelectedRole([]);
   };
 
-  useEffect(() => {
-    // setSelectedRole(props.groups?.roles);
-  }, []);
-  console.log("selectedRole", selectedRole);
   return (
     <Form className={"full"} form={form} layout={"vertical"}>
       <div>

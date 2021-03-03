@@ -32,7 +32,7 @@ export const addNewAttribute = (formData) => {
   return post(`api/attribute/add`, formData)
     .then(() => {
       //   Notification("Success!", `Attribute has been added successfully!`, "success")
-      history.push("/attributes");
+      history.push("/features/attributes");
     })
     .catch((err) => {
       // Notification("Error!", "Something went wrong!", "error");

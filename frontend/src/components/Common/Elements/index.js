@@ -22,6 +22,9 @@ import {
   DeleteOutlined,
   EditOutlined,
 } from "@ant-design/icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 import "./elements.css";
 import history from "../../../utils/historyUtil";
@@ -49,7 +52,7 @@ export const FormItem = (props) => {
             {props.required && (
               <span
                 style={{
-                  color: "red",
+                  color: "#FF3939",
                   fontFamily: "monospace",
                   verticalAlign: "3px",
                 }}
@@ -161,6 +164,7 @@ const AntInput = (props) => {
         onBlur={props.onBlur}
         onPressEnter={props.onPressEnter}
         placeholder={props.placeholder || `Enter ${props.label}`}
+        onChange={props.onChange}
         prefix={
           props.type === "email" ? (
             <MailOutlined
@@ -487,7 +491,13 @@ const AntButton = (props) => {
             // e.preventDefault();
             props.onClick && props.onClick(e);
           }}
-          style={{ width: props.width || "100%", ...props.style }}
+          style={{
+            width: props.width || "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            ...props.style,
+          }}
           className={props.className}
           disabled={props.disabled}
           loading={props.loading}
@@ -519,12 +529,22 @@ export const SearchButton = (props) => {
 
 export const DeleteButton = (props) => {
   return (
-    <Popconfirm title="Sure to delete?" onConfirm={props.onClick}>
+    <Popconfirm
+      title="Sure to delete?"
+      onConfirm={!props.noConfirm ? props.onClick : false}
+    >
       <AntButton
         hideLabel
         formstyle={{ margin: 0 }}
         className="delete-btn"
-        style={{ height: 32, width: 32 }}
+        style={{ height: 32, width: props.style?.width || 32, ...props.style }}
+        onClick={
+          props.noConfirm
+            ? props.onClick
+            : (e) => {
+                e.preventDefault();
+              }
+        }
       >
         <DeleteOutlined style={{ fontWeight: "bold", color: "white" }} />
       </AntButton>
@@ -542,6 +562,20 @@ export const EditButton = (props) => {
       onClick={props.onClick}
     >
       <EditOutlined style={{ fontWeight: "bold", color: "white" }} />
+    </AntButton>
+  );
+};
+
+export const CartButton = (props) => {
+  return (
+    <AntButton
+      hideLabel
+      formstyle={{ margin: 0 }}
+      className="edit-btn"
+      style={{ height: 32, width: 32 }}
+      onClick={props.onClick}
+    >
+      <FontAwesomeIcon style={{ fontSize: 12 }} icon={faCartPlus} />
     </AntButton>
   );
 };

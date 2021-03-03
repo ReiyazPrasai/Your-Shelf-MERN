@@ -6,7 +6,7 @@ import {
   faStore,
   faObjectGroup,
   faFileAlt,
-  faDatabase,
+  faShoppingBag,
   faDollarSign,
   faPencilRuler,
   faThList,
@@ -20,8 +20,8 @@ const menuList = [
   {
     label: "Dashboard",
     icon: (
-      <div className="menu-icon-wrapper" style={{ background: "#2c15ad" }}>
-        <FontAwesomeIcon icon={faTachometerAlt} />
+      <div className="menu-icon-wrapper" style={{ background: "#2c15ad", }}>
+        <FontAwesomeIcon style={{fontSize: 12}} icon={faTachometerAlt} />
       </div>
     ),
     id: "/dashboard",
@@ -31,27 +31,27 @@ const menuList = [
     label: "Products",
     icon: (
       <div className="menu-icon-wrapper" style={{ background: "#F68C02" }}>
-        <FontAwesomeIcon icon={faDatabase} />
+        <FontAwesomeIcon style={{fontSize: 12}} icon={faShoppingBag} />
       </div>
     ),
-    id: "/collection",
-    to: "/collection",
+    id: "/products",
+    to: "/products",
   },
   // {
   //   label: "Brands",
-  //   icon: <FontAwesomeIcon icon={faTag} />,
+  //   icon: <FontAwesomeIcon style={{fontSize: 12}} icon={faTag} />,
   //   id: "/brands",
   //   to: "/brands",
   // },
   // {
   //   label: "Category",
-  //   icon: <FontAwesomeIcon icon={faObjectGroup} />,
+  //   icon: <FontAwesomeIcon style={{fontSize: 12}} icon={faObjectGroup} />,
   //   id: "/categories",
   //   to: "/categories",
   // },
   // {
   //   label: "Attributes",
-  //   icon: <FontAwesomeIcon icon={faFileAlt} />,
+  //   icon: <FontAwesomeIcon style={{fontSize: 12}} icon={faFileAlt} />,
   //   id: "/attributes",
   //   to: "/attributes",
   // },
@@ -59,7 +59,7 @@ const menuList = [
     label: "Features",
     icon: (
       <div className="menu-icon-wrapper" style={{ background: "#15ada0" }}>
-        <FontAwesomeIcon icon={faThList} />
+        <FontAwesomeIcon style={{fontSize: 12}} icon={faThList} />
       </div>
     ),
     id: "/features",
@@ -70,7 +70,7 @@ const menuList = [
         label: "Brands",
         icon: (
           <div className="menu-icon-wrapper" style={{ background: "#ad157f" }}>
-            <FontAwesomeIcon icon={faTag} />
+            <FontAwesomeIcon style={{fontSize: 12}} icon={faTag} />
           </div>
         ),
         id: "/features/brands",
@@ -80,7 +80,7 @@ const menuList = [
         label: "Category",
         icon: (
           <div className="menu-icon-wrapper" style={{ background: "#ad7815" }}>
-            <FontAwesomeIcon icon={faObjectGroup} />
+            <FontAwesomeIcon style={{fontSize: 12}} icon={faObjectGroup} />
           </div>
         ),
         id: "/features/categories",
@@ -90,7 +90,7 @@ const menuList = [
         label: "Attributes",
         icon: (
           <div className="menu-icon-wrapper" style={{ background: "#ad1f15" }}>
-            <FontAwesomeIcon icon={faFileAlt} />
+            <FontAwesomeIcon style={{fontSize: 12}} icon={faFileAlt} />
           </div>
         ),
         id: "/features/attributes",
@@ -103,7 +103,7 @@ const menuList = [
     label: "Company",
     icon: (
       <div className="menu-icon-wrapper" style={{ background: "#5ead15" }}>
-        <FontAwesomeIcon icon={faBuilding} />
+        <FontAwesomeIcon style={{fontSize: 12}} icon={faBuilding} />
       </div>
     ),
     id: "/company",
@@ -113,7 +113,7 @@ const menuList = [
     label: "Stores",
     icon: (
       <div className="menu-icon-wrapper" style={{ background: "#8215ad" }}>
-        <FontAwesomeIcon icon={faStore} />
+        <FontAwesomeIcon style={{fontSize: 12}} icon={faStore} />
       </div>
     ),
     id: "/stores",
@@ -124,7 +124,7 @@ const menuList = [
         label: "Manage",
         icon: (
           <div className="menu-icon-wrapper" style={{ background: "#1069bc" }}>
-            <FontAwesomeIcon icon={faPencilRuler} />
+            <FontAwesomeIcon style={{fontSize: 12}} icon={faPencilRuler} />
           </div> 
         ),
         to: "/stores/manage",
@@ -134,7 +134,7 @@ const menuList = [
         label: "Orders",
         icon: (
           <div className="menu-icon-wrapper" style={{ background: "#F63702" }}>
-            <FontAwesomeIcon icon={faDollarSign} />
+            <FontAwesomeIcon style={{fontSize: 12}} icon={faDollarSign} />
           </div>
         ),
         id: "/stores/orders",
@@ -145,7 +145,7 @@ const menuList = [
     label: "Manage",
     icon: (
       <div className="menu-icon-wrapper" style={{ background: "#ce0d0d" }}>
-        <FontAwesomeIcon icon={faPencilRuler} />
+        <FontAwesomeIcon style={{fontSize: 12}} icon={faPencilRuler} />
       </div>
     ),
     id: "/manage",
@@ -154,7 +154,7 @@ const menuList = [
         label: "Groups",
         icon: (
           <div className="menu-icon-wrapper" style={{ background: "#bcb910" }}>
-            <FontAwesomeIcon icon={faUsers} />
+            <FontAwesomeIcon style={{fontSize: 12}} icon={faUsers} />
           </div>
         ),
         to: "/manage/groups",
@@ -164,7 +164,7 @@ const menuList = [
         label: "Roles",
         icon: (
           <div className="menu-icon-wrapper" style={{ background: "#bc10ae" }}>
-            <FontAwesomeIcon icon={faClipboard} />
+            <FontAwesomeIcon style={{fontSize: 12}} icon={faClipboard} />
           </div>
         ),
         to: "/manage/roles",
@@ -176,7 +176,7 @@ const menuList = [
     label: "Users",
     icon: (
       <div className="menu-icon-wrapper" style={{ background: "#1069BC" }}>
-        <FontAwesomeIcon icon={faUser} />
+        <FontAwesomeIcon style={{fontSize: 12}} icon={faUser} />
       </div>
     ),
     id: "/users",

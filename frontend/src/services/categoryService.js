@@ -45,7 +45,7 @@ export const addNewCategory = (formData) => {
   return post(`api/category/add`, formData)
     .then(() => {
       //   Notification("Success!", `Category has been added successfully!`, "success")
-      history.push("/categories");
+      history.push("/features/categories");
     })
     .catch((err) => {
       // Notification("Error!", "Something went wrong!", "error");

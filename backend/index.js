@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
+// use the third party middlewares
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
@@ -24,6 +25,8 @@ const attributeRoute = require("./src/routes/attributeRoute");
 const groupRoute = require("./src/routes/groupRoute");
 const roleRoute = require("./src/routes/roleRoute");
 const companyRoute = require("./src/routes/companyRoute");
+const productRoute = require("./src/routes/productRoute");
+
 
 // Routes middleware here
 app.use("/api/user", authRoute);
@@ -34,6 +37,8 @@ app.use("/api/attribute", attributeRoute);
 app.use("/api/group", groupRoute);
 app.use("/api/role", roleRoute);
 app.use("/api/company", companyRoute);
+app.use("/api/product", productRoute);
+
 
 // Connect to DB
 mongoose

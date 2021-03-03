@@ -91,7 +91,6 @@ module.exports.deleteByIdCategoryCallback = async (req, res) => {
         item.categoryIdList = item.categoryIdList.filter(
           ({ id }) => id !== req.params.id
         );
-        console.log(attribute.categoryIdList);
         item.save();
       }
     });

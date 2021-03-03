@@ -1,169 +1,231 @@
-import React, { useState } from "react";
-import { Form, Row, Col } from "antd";
-import { DeleteFilled, PlusOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import { Form, Row, Col, Steps } from "antd";
 
-import { Card, Input, Button, Switch, Select } from "../Common/Elements";
+import {
+  UserOutlined,
+  ProfileOutlined,
+  LoadingOutlined,
+  FileImageOutlined,
+} from "@ant-design/icons";
+
+import { Button, Card } from "../Common/Elements";
+import ProductDescription from "./ProductDescription";
+import ProductFinance from "./ProductFinance";
+import ProductImageUploads from "./ProductImageUploads";
+import { isEmpty } from "../../utils/commonUtils";
+const { Step } = Steps;
 
 const MainAddForm = (props) => {
   const [form] = Form.useForm();
-  const [attributeValueId, setAttributeValueId] = useState(1);
-  const [attributeValues, setAttributeValues] = useState([1]);
-  const [categoryIdListId, setCategoryIdListId] = useState(1);
-  const [categoryIdList, setCategoryIdList] = useState([1]); 
-console.log(props)
-  const handleSubmit = () => {
-    form.validateFields().then((values) => {
-      const formData = {
-        ...values,
-        attributeValues: values.attributeValues.filter((item) => item),
-        categoryIdList: values.categoryIdList.filter((item) => item),
-      };
-      props.addNewAttribute(formData);
-    });
-  };
-
-  const handelCancel = () => {
-    form.resetFields();
-    form.setFieldsValue({ isActive: true });
-  };
+  const [attributeValueId, setAttributeValueId] = useState(0);
+  const [attributeValues, setAttributeValues] = useState([0]);
+  const [attributeSelectOptions, setAttributeSelectOptions] = useState([]);
+  const [
+    attributeValueSelectOptions,
+    setAttributeValueSelectOptions,
+  ] = useState([]);
+  const [current, setCurrent] = useState(0);
+  const [formData, setFormData] = useState({});
+  const [totalQuantityAndPrice, setTotalQuantityAndPrice] = useState([]);
 
   const handleAddAttributeValues = () => {
     setAttributeValueId(attributeValueId + 1);
     setAttributeValues([...attributeValues, attributeValueId + 1]);
   };
-  const handleAddCategory = () => {
-    setCategoryIdListId(categoryIdListId + 1);
-    setCategoryIdList([...categoryIdList, categoryIdListId + 1]);
+
+  const handleSubmit = () => {
+    form.validateFields().then((values) => {
+      props.addNewProduct({...formData, isActive: props.isActive}).then(() => {
+        props.setIsAddProduct(false);
+        setFormData(false);
+        form.resetFields();
+        setAttributeValueId(0);
+        setAttributeValues([0]);
+        setAttributeSelectOptions([]);
+        setAttributeValueSelectOptions([]);
+        setCurrent(0);
+        setTotalQuantityAndPrice([]);
+      });
+    });
+  };
+  
+  const next = (index) => {
+    if (typeof index === "number" && current < steps.length) {
+      form.validateFields().then((values) => {
+        current === 0 &&
+          setFormData({
+            ...formData,
+            ...values,
+            description: {
+              ...values.description,
+              attributes: values.description?.attributes.filter((item) => item),
+            },
+          });
+        setCurrent(index);
+      });
+    } else {
+      form.validateFields().then((values) => {
+        current === 0 &&
+          setFormData({
+            ...formData,
+            ...values,
+            description: {
+              ...values.description,
+              attributes: values.description?.attributes.filter((item) => item),
+            },
+          });
+        setCurrent(current + 1);
+      });
+    }
   };
 
-  return (
-    <Form className={"full"} form={form} layout={"vertical"}>
-      <div style={{ margin: "auto" }}>
-        <Card
-          onSave={handleSubmit}
-          onCancel={handelCancel}
-          style={{
-            padding: 20,
-          }}
-          black
+  const prev = () => {
+    setCurrent(current - 1);
+  };
+
+  const steps = [
+    {
+      title: "Description",
+      content: (
+        <ProductDescription
+          handleAddAttributeValues={handleAddAttributeValues}
+          attributeValueList={attributeValues}
+          setAttributeValues={setAttributeValues}
+          attributeValueId={attributeValueId}
+          setAttributeValueId={setAttributeValueId}
+          attributeSelectOptions={attributeSelectOptions}
+          setAttributeSelectOptions={setAttributeSelectOptions}
+          attributeValueSelectOptions={attributeValueSelectOptions}
+          setAttributeValueSelectOptions={setAttributeValueSelectOptions}
+          setFormData={setFormData}
           form={form}
-        >
-          <Row gutter={[8, 8]}>
-            <Col span={24}>
-              <Input name="name" label="Attribute Name" required />
+          {...props}
+        />
+      ),
+      icon: <UserOutlined />,
+      description: (
+        <span style={{ fontSize: ".6rem" }}>Product Description</span>
+      ),
+    },
+    {
+      title: "Finance",
+      content: (
+        <ProductFinance
+          form={form}
+          totalQuantityAndPrice={totalQuantityAndPrice}
+          setTotalQuantityAndPrice={setTotalQuantityAndPrice}
+          formData={formData}
+          setFormData={setFormData}
+          {...props}
+        />
+      ),
+      icon: <ProfileOutlined />,
+      description: (
+        <span style={{ fontSize: ".6rem" }}>Quantity and Price</span>
+      ),
+    },
+
+    {
+      title: "Images",
+      content: <ProductImageUploads form={form} {...props} />,
+      icon: <FileImageOutlined />,
+    },
+  ];
+
+  useEffect(() => {
+    if (current !== 1 && isEmpty(formData.finance?.stocksDetail)) {
+      setTotalQuantityAndPrice(
+        formData.description?.attributes?.map((item) => {
+          return {
+            attribute: item?.attribute,
+            qAndP: item?.attributeValueList?.map((item) => ({
+              quantity: 0,
+              price: 0,
+              attributeValueId: item,
+            })),
+          };
+        })
+      );
+    }
+  }, [formData, current]);
+
+  useEffect(() => {
+    setFormData({
+      description: {},
+      finance: {
+        vat: props.company?.finance?.vat,
+        discount: props.company.finance?.discount?.discountPercent || 0,
+        allowedProfitMargin: props.company.finance?.allowedProfitMargin,
+      },
+    });
+  }, [props.company]);
+
+  return (
+    <div style={{ margin: "auto" }}>
+      <Card
+        style={{
+          padding: 20,
+        }}
+        black
+        form={form}
+        loading={
+          props.categoriesLoading ||
+          props.attributesLoading ||
+          props.companyLoading
+        }
+      >
+        <Steps current={current}>
+          {steps.map((step, index) => {
+            return (
+              <Step
+                key={index}
+                status={
+                  current === index
+                    ? "process"
+                    : index < current
+                    ? "finish"
+                    : "wait"
+                }
+                subTitle={step.subTitle}
+                title={step.title}
+                description={step.description}
+                icon={current === index ? <LoadingOutlined /> : step.icon}
+                onClick={() => {
+                  current !== index && next(index);
+                }}
+                style={{ cursor: "pointer" }}
+              />
+            );
+          })}
+        </Steps>
+        <Form className={"full"} form={form} layout={"vertical"}>
+          <div className="steps-content">{steps[current].content}</div>
+        </Form>
+        <Row gutter={8}>
+          <Col span={12}>
+            {current > 0 && (
+              <Button hideLabel onClick={() => prev()}>
+                Previous
+              </Button>
+            )}
+          </Col>
+          {current < steps.length - 1 && (
+            <Col span={12}>
+              <Button hideLabel type="primary" onClick={() => next()}>
+                Next
+              </Button>
             </Col>
-          </Row>
-
-          {attributeValues?.map((item, index) => {
-            return (
-              <Row gutter={[8, 8]}>
-                <Col span={attributeValues.length === 1 ? 11 : 10}>
-                  <Input
-                    name={["attributeValues", item, "name"]}
-                    hideLabel={index !== 0}
-                    label="Attribute Name"
-                    required
-                  />
-                </Col>
-                <Col span={attributeValues.length === 1 ? 11 : 10}>
-                  <Input
-                    name={["attributeValues", item, "abbreviation"]}
-                    hideLabel={index !== 0}
-                    label="Abbreviation"
-                    required
-                  />
-                </Col>
-                <Col span={2}>
-                  <Switch
-                    name={["attributeValues", item, "isActive"]}
-                    initialValue={true}
-                    hideLabel={index !== 0}
-                    form={form}
-                    size="small"
-                  />
-                </Col>
-                {attributeValues.length > 1 && (
-                  <Col span={1}>
-                    <DeleteFilled
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setAttributeValues(
-                          attributeValues.filter((key) => {
-                            return key !== item;
-                          })
-                        );
-                      }}
-                      style={{
-                        cursor: "pointer",
-                        color: "red",
-                        margin: index === 0 ? "32px 0 0 5px" : "10px 0 0 5px",
-                      }}
-                    />
-                  </Col>
-                )}
-              </Row>
-            );
-          })}
-          <Button
-            className="centralize"
-            style={{ margin: "3px 0 8px 5px", width: 18, height: 30 }}
-            onClick={handleAddAttributeValues}
-          >
-            <PlusOutlined style={{ color: "#15ca00" }} />
-          </Button>
-          {categoryIdList?.map((item, index) => {
-            return (
-              <Row gutter={[8, 8]}>
-                <Col span={categoryIdList.length === 1 ? 24 : 23}>
-                  <Select
-                    name={["categoryIdList", item, "id"]}
-                    hideLabel={index !== 0}
-                    label="Category"
-                    array={props.categories}
-                    value={"_id"}
-                    description={"name"}
-                    onChange={(e) => {
-                      if (e) {
-                        props.fetchSubCategoryList(e);
-                      }
-                      form.setFieldsValue({ subCategoryId: null });
-                    }}
-                    required
-                  />
-                </Col>
-
-                {categoryIdList.length > 1 && (
-                  <Col span={1}>
-                    <DeleteFilled
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setCategoryIdList(
-                          categoryIdList.filter((key) => {
-                            return key !== item;
-                          })
-                        );
-                      }}
-                      style={{
-                        cursor: "pointer",
-                        color: "red",
-                        margin: index === 0 ? "32px 0 0 5px" : "10px 0 0 5px",
-                      }}
-                    />
-                  </Col>
-                )}
-              </Row>
-            );
-          })}
-          <Button
-            className="centralize"
-            style={{ margin: "3px 0 8px 5px", width: 18, height: 30 }}
-            onClick={handleAddCategory}
-          >
-            <PlusOutlined style={{ color: "#15ca00" }} />
-          </Button>
-        </Card>
-      </div>
-    </Form>
+          )}
+          {current === steps.length - 1 && (
+            <Col span={12}>
+              <Button hideLabel type="primary" onClick={handleSubmit}>
+                Add Product
+              </Button>
+            </Col>
+          )}
+        </Row>
+      </Card>
+    </div>
   );
 };
 

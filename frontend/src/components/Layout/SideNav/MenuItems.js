@@ -38,7 +38,9 @@ const MenuItems = (props) => {
   const upDownArrow = (id) => (
     <div
       className="sub-menu-arrow centralize"
-      style={props.isCollapsed ? { marginLeft: 8 } : {}}
+      style={
+        props.isCollapsed ? { position: "absolute", right: 0, top: -5 } : {}
+      }
     >
       {subMenuShow[0] === true && subMenuShow[1] === id ? (
         <CaretUpFilled
@@ -92,36 +94,25 @@ const MenuItems = (props) => {
               >
                 {(index === 1 || index === 3) && (
                   <div
-                    className="centralize"
                     style={{
-                      margin: "16px 0 0 0",
                       width: "100%",
+                      height: 20,
+                      borderTop: "1px solid #555555",
+                      padding: "3px 0 0 14px",
+                      fontSize: ".6rem",
+                      fontWeight: "bold",
+                      color: "#10BC83",
                     }}
                   >
-                    <span
-                      style={{
-                        fontSize: ".6rem",
-                        fontWeight: "bold",
-                        color: "#10BC83",
-                      }}
-                    >
-                      {index === 1 ? "Products" : "Company"}
-                    </span>
-                    {!props.isCollapsed && (
-                      <div
-                        style={{
-                          background: "#10BC83",
-                          height: "0px",
-                          width: "150px",
-                          marginLeft: "10px",
-                          marginTop: "3px",
-                        }}
-                      />
-                    )}
+                    {index === 1 ? "Products" : "Company"}
                   </div>
                 )}
                 <div
-                  style={{ position: "relative" }}
+                  style={
+                    props.isCollapsed
+                      ? { height: 46, paddingTop: 6 }
+                      : { position: "relative" }
+                  }
                   onClick={() => {
                     if (subMenuShow[1] === id) {
                       setSubMenuShow([!subMenuShow[0], id]);
@@ -144,19 +135,37 @@ const MenuItems = (props) => {
                 >
                   <div
                     className="menu-label"
-                    style={subMenu ? { paddingLeft: 16 } : {}}
+                    style={
+                      !props.isCollapsed
+                        ? {}
+                        : {
+                            flexDirection: "column",
+                            alignItems: "center",
+                            paddingLeft: 0,
+                          }
+                    }
                   >
-                    <span
-                      style={{ width: 20, textAlign: "right", marginRight: 4 }}
-                    >
+                    <span style={{ width: 20, textAlign: "right" }}>
                       {icon}
                     </span>
+                    {props.isCollapsed && (
+                      <div
+                        className={"centralize"}
+                        style={{
+                          width: "100%",
+                          fontSize: "0.55rem",
+                          marginTop: 1,
+                        }}
+                      >
+                        {label}
+                      </div>
+                    )}
                     {!props.isCollapsed && (
-                      <span style={{ marginLeft: 16 }}>{label}</span>
+                      <span style={{ marginLeft: 10 }}>{label}</span>
                     )}
                   </div>
+
                   {subMenu && upDownArrow(id)}
-                  {props.isCollapsed && toolTip(label, id, false, subMenu)}
                 </div>
               </Link>
               {subMenu?.map((item) => {
@@ -184,23 +193,46 @@ const MenuItems = (props) => {
                           setTooltipClass("");
                           setIsHovered(null);
                         }}
-                        style={{ position: "relative" }}
+                        style={
+                          props.isCollapsed
+                            ? { height: 46, paddingTop: 6 }
+                            : { position: "relative" }
+                        }
                       >
                         <div
                           className="sub-menu-label"
-                          style={{ paddingLeft: props.isCollapsed ? 16 : 34 }}
+                          style={
+                            !props.isCollapsed
+                              ? { paddingLeft: 34 }
+                              : {
+                                  flexDirection: "column",
+                                  alignItems: "center",
+                                  paddingLeft: 0,
+                                }
+                          }
                         >
                           <span
                             style={{
                               width: 20,
                               textAlign: "right",
-                              marginRight: 4,
                             }}
                           >
                             {item.icon}
                           </span>
+                          {props.isCollapsed && (
+                            <div
+                              className={"centralize"}
+                              style={{
+                                width: "100%",
+                                fontSize: "0.55rem",
+                                marginTop: 1,
+                              }}
+                            >
+                              {item.label}
+                            </div>
+                          )}
                           {!props.isCollapsed && (
-                            <span style={{ marginLeft: 8 }}>{item.label}</span>
+                            <span style={{ marginLeft: 10 }}>{item.label}</span>
                           )}
                         </div>
                         {props.isCollapsed &&

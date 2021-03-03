@@ -1,14 +1,10 @@
 import { Form, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  CloseCircleFilled,
-  CheckCircleFilled,
-  QuestionCircleFilled,
-} from "@ant-design/icons";
 
-import { Card, DeleteButton, Input, Switch } from "../Common/Elements";
+import { Card, CartButton, Input, Switch } from "../Common/Elements";
 import { components, getColumns } from "../Common/EditableCell.js";
 import ListTop from "./ListTop";
+import history from "../../utils/historyUtil";
 
 const List = (props) => {
   const [form] = Form.useForm();
@@ -17,6 +13,7 @@ const List = (props) => {
   const [listQuery, setListQuery] = useState([]);
 
   const handleSubmit = (e, record, field) => {
+
     if (e !== undefined && e !== record[field] && e !== "") {
       props
         .editStore(
@@ -56,7 +53,7 @@ const List = (props) => {
 
   const columns = [
     {
-      title: "Store Name",
+      title: "Product Name",
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => a.name - b.name,
@@ -64,13 +61,13 @@ const List = (props) => {
       editable: true,
       editComponent: (text, record, toggleEdit) => (
         <Input
-          name={["store", record._id, "name"]}
+          name={["product", record._id, "name"]}
           formstyle={{ margin: 0 }}
           hideLabel
           autoFocus
           onBlur={(e) => {
             toggleEdit();
-            form.resetFields(["store", record._id, "name"]);
+            form.resetFields(["product", record._id, "name"]);
           }}
           onPressEnter={(e) => {
             handleSubmit(e.target.value, record, "name");
@@ -81,24 +78,34 @@ const List = (props) => {
       ),
     },
     {
-      title: "Contact Number",
-      dataIndex: "contactNumber",
-      key: "contactNumber",
-      sorter: (a, b) => a.name - b.name,
-      sortOrder: sortedInfo.columnKey === "contactNumber" && sortedInfo.order,
+      title: "Brand",
+      dataIndex: "brand",
+      key: "brand",
+      sorter: (a, b) => a.brand - b.brand,
+      sortOrder: sortedInfo.columnKey === "brand" && sortedInfo.order,
+      render: (text, record) => {
+        return <div>{props.brands?.find(({ _id }) => _id === text)?.name}</div>;
+      },
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+      sorter: (a, b) => a.description - b.description,
+      sortOrder: sortedInfo.columnKey === "description" && sortedInfo.order,
       editable: true,
       editComponent: (text, record, toggleEdit) => (
         <Input
-          name={["store", record._id, "contactNumber"]}
+          name={["product", record._id, "description"]}
           formstyle={{ margin: 0 }}
           hideLabel
           autoFocus
           onBlur={(e) => {
             toggleEdit();
-            form.resetFields(["store", record._id, "contactNumber"]);
+            form.resetFields(["product", record._id, "description"]);
           }}
           onPressEnter={(e) => {
-            handleSubmit(e.target.value, record, "contactNumber");
+            handleSubmit(e.target.value, record, "description");
             toggleEdit();
           }}
           initialValue={text}
@@ -107,77 +114,16 @@ const List = (props) => {
     },
 
     {
-      title: "City",
-      dataIndex: "city",
-      key: "city",
-      sorter: (a, b) => a.name - b.name,
-      sortOrder: sortedInfo.columnKey === "city" && sortedInfo.order,
-      editable: true,
-      editComponent: (text, record, toggleEdit) => (
-        <Input
-          name={["store", record._id, "city"]}
-          formstyle={{ margin: 0 }}
-          hideLabel
-          autoFocus
-          onBlur={(e) => {
-            toggleEdit();
-            form.resetFields(["store", record._id, "city"]);
-          }}
-          onPressEnter={(e) => {
-            handleSubmit(e.target.value, record, "city");
-            toggleEdit();
-          }}
-          initialValue={text}
-        />
-      ),
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-      sorter: (a, b) => a.name - b.name,
-      sortOrder: sortedInfo.columnKey === "address" && sortedInfo.order,
-      editable: true,
-      editComponent: (text, record, toggleEdit) => (
-        <Input
-          name={["store", record._id, "address"]}
-          formstyle={{ margin: 0 }}
-          hideLabel
-          autoFocus
-          onBlur={(e) => {
-            toggleEdit();
-            form.resetFields(["store", record._id, "address"]);
-          }}
-          onPressEnter={(e) => {
-            handleSubmit(e.target.value, record, "address");
-            toggleEdit();
-          }}
-          initialValue={text}
-        />
-      ),
-    },
-    {
-      title: "Approval Status",
-      dataIndex: "isApproved",
-      key: "isApproved",
-      sorter: (a, b) => a.isApproved - b.isApproved,
-      sortOrder: sortedInfo.columnKey === "isApproved" && sortedInfo.order,
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+      sorter: (a, b) => a.category - b.category,
+      sortOrder: sortedInfo.columnKey === "category" && sortedInfo.order,
       render: (text, record) => {
-        return text === undefined ? (
-          <b style={{ color: "grey" }}>
-            <QuestionCircleFilled /> Pending
-          </b>
-        ) : text ? (
-          <b style={{ color: "#00ff00" }}>
-            <CheckCircleFilled /> Approved
-          </b>
-        ) : (
-          <b style={{ color: "orangered" }}>
-            <CloseCircleFilled /> Disapproved
-          </b>
-        );
+        return <div>{props.categories?.find(({ _id }) => _id === text)?.name}</div>;
       },
     },
+
     {
       title: "Active Status",
       dataIndex: "isActive",
@@ -190,7 +136,7 @@ const List = (props) => {
           <Switch
             formstyle={{ margin: 0 }}
             hideLabel
-            name={["store", record._id, "isActive"]}
+            name={["product", record._id, "isActive"]}
             onChange={(e) => {
               handleSubmit(e, record, "isActive");
             }}
@@ -205,11 +151,9 @@ const List = (props) => {
       render: (text, record) => {
         return (
           <div className="centralize">
-            <DeleteButton
+            <CartButton
               onClick={() => {
-                props.deleteStore(record._id).then(() => {
-                  props.fetchStoreList();
-                });
+              history.push(`/products/view/${record._id}`)
               }}
             />
           </div>
@@ -219,12 +163,17 @@ const List = (props) => {
   ];
 
   useEffect(() => {
-    if (!props.storeLoading) {
+    if (!props.productLoading) {
       setDatasource(
-        props.stores?.map((store) => ({ ...store, key: store._id }))
+        props.products?.map((product) => ({
+          ...product.description,
+          isActive: product.isActive,
+          _id: product._id,
+          key: product._id,
+        }))
       );
     }
-  }, [props.stores, props.storeLoading]);
+  }, [props.products, props.productLoading]);
 
   return (
     <Form form={form} layout="vertical">
@@ -246,7 +195,7 @@ const List = (props) => {
             onChange={handleChange}
             dataSource={datasource}
             scroll={{ x: 500 }}
-            loading={props.storeLoading}
+            loading={props.productLoading}
             columns={getColumns(columns)}
             bordered
             pagination={
