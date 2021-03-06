@@ -130,11 +130,11 @@ module.exports.loginCallback = async (req, res) => {
   });
   res
     .status(202)
-    .cookie("Authorization", token, {
-      // maxAge: 30 * 60 * 1000,
+    .cookie("access_token", token, {
+      maxAge: 2*60 * 60 * 1000,
       path: "/",
-      httpOnly: false,
-      sameSite: 'none',
+      httpOnly: true,
+      sameSite: false,
       // domain: 'yourshelf.netlify.app'
       
     })
@@ -142,13 +142,13 @@ module.exports.loginCallback = async (req, res) => {
 };
 
 module.exports.logoutCallback = async (req, res) => {
-  res.clearCookie("Authorization");
+  res.clearCookie("access_token");
   res.end();
 };
 
 module.exports.userInfoCallback = async (req, res) => {
   try {
-    const token = req.cookies.Authorization;
+    const token = req.cookies.access_token;
     if (!token)
       return res
         .status(401)
