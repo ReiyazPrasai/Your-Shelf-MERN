@@ -10,6 +10,7 @@ export const Api = (contentType = "application/json") => {
 
   const config = {
     withCredentials: true,
+    credentials: 'include',
     header: header,
     baseURL: BASE_URL,
     responseType: "json",
