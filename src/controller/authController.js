@@ -131,10 +131,10 @@ module.exports.loginCallback = async (req, res) => {
   res
     .status(202)
     .cookie("Authorization", token, {
-      maxAge: 30 * 60 * 1000,
+      // maxAge: 30 * 60 * 1000,
       path: "/",
       httpOnly: false,
-      sameSite: 'Lax',
+      sameSite: 'none',
       // domain: 'yourshelf.netlify.app'
       
     })
