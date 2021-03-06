@@ -179,7 +179,7 @@ module.exports.confirmationCallback = async (req, res) => {
         user.isConfirmed = true;
         user.companyId = company._id;
         await user.save();
-        return res.redirect("http://localhost:3000");
+        return res.redirect("https://yourshelf-fe.herokuapp.com/");
       });
     });
   } catch (error) {
@@ -236,7 +236,7 @@ module.exports.resetPasswordRedirectCallback = async (req, res) => {
       if (!user) return res.status(400).send(onFailure(400, "Invalid token"));
 
       return res.redirect(
-        `http://localhost:3000/#/auth/reset-password/${req.params.token}`
+        `https://yourshelf-fe.herokuapp.com//#/auth/reset-password/${req.params.token}`
       );
     });
   } catch (error) {
