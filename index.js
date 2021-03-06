@@ -8,7 +8,7 @@ const path = require("path")
 require("dotenv").config();
 
 // use the third party middlewares
-app.use(cors({ origin: "https://yourshelf.netlify.app/", credentials: true }));
+app.use(cors({ origin: "https://yourshelf.netlify.app", credentials: true }));
 app.use(express.json());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
