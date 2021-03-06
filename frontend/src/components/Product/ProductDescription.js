@@ -34,7 +34,7 @@ const ProductDescription = (props) => {
     <div style={{ padding: "20px 0" }}>
       <Row gutter={8}>
         <Col span={12}>
-          <Input name={["description", "name"]} label="Product Name" required />
+          <Input name={["description", "name"]} label="Product Name"  />
         </Col>
         <Col span={12}>
           <Row gutter={4}>
@@ -66,7 +66,7 @@ const ProductDescription = (props) => {
           <TextArea
             name={["description", "description"]}
             label="Product Description"
-            required
+            
           />
         </Col>
       </Row>
@@ -99,7 +99,7 @@ const ProductDescription = (props) => {
 
                   setSelectedAttributes([]);
                 }}
-                required
+                
               />
             </Col>
             <Col span={4}>
@@ -124,7 +124,7 @@ const ProductDescription = (props) => {
             description={"name"}
             value={"_id"}
             mode="multiple"
-            required
+            
           />
         </Col>
       </Row>
@@ -177,7 +177,7 @@ const ProductDescription = (props) => {
                         );
                       }
                     }}
-                    required
+                    
                   />
                 </Col>
                 {props.attributeValueList.length > 1 ? (
@@ -236,7 +236,7 @@ const ProductDescription = (props) => {
                     description={"name"}
                     value={"_id"}
                     mode="multiple"
-                    required
+                    
                   />
                 </Col>
                 {props.attributeValueList.length > 1 && (

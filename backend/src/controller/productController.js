@@ -3,15 +3,17 @@ const { onSuccess, onFailure } = require("../utils/responseDataStructure");
 const { productValidation } = require("../validation/productValidation");
 
 module.exports.addProductCallback = async (req, res) => {
-  const { error } = productValidation(req.body);
+  const data = JSON.parse(req.body.data);
+  const { error } = productValidation(data);
 
   if (error)
     return res.status(400).send(onFailure(400, error.details[0].message));
 
   const product = new Product({
-    description: req.body.description,
-    finance: req.body.finance,
-    isActive: req.body.isActive,
+    description: data.description,
+    finance: data.finance,
+    isActive: data.isActive,
+    image: req.file,
     companyId: req.user.companyId,
   });
   const savedProduct = await product.save();

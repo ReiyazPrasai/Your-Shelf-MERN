@@ -29,7 +29,7 @@ import {
   };
   
   export const addNewProduct = (formData) => {
-    return post(`api/product/add`, formData)
+    return post(`api/product/add`, formData, 'multipart/form-data')
       .then(() => {
         //   Notification("Success!", `Product has been added successfully!`, "success")
         history.push("/products");

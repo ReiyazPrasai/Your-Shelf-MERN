@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const path = require("path")
 require("dotenv").config();
 
 // use the third party middlewares
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
+app.use('/src/uploads', express.static(path.join(__dirname, 'src/uploads')))
 
 const CONNECTION_URI = process.env.CONNECTION_URI;
 const port = process.env.PORT || 8000;

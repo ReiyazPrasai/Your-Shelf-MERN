@@ -18,6 +18,7 @@ export const Api = (contentType = "application/json") => {
 
   api.interceptors.response.use(
     (response) => {
+      console.log(history.location.pathname);
       return response;
     },
     (err) => {

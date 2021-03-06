@@ -48,8 +48,8 @@ export const ViewContainer = (props) => {
 
 const mapStateToProps = (state) => ({
   product: state.product.payload,
-  prodcutLoading: state.product.loading,
-  prodcutError: state.product.error,
+  productLoading: state.product.loading,
+  productError: state.product.error,
   userInfo: state.userInfo.payload,
   brands: state.brands.payload,
   brandLoading: state.brands.loading,

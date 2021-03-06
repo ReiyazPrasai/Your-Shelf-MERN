@@ -98,6 +98,21 @@ const financeSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const productImageSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  url: {
+    type: String,
+    required: true,
+  },
+  uid: {
+    type: String,
+    default: this._id,
+  },
+});
+
 const productSchema = new mongoose.Schema({
   description: {
     type: descriptionSchema,
@@ -107,6 +122,7 @@ const productSchema = new mongoose.Schema({
     type: financeSchema,
     required: true,
   },
+  image: productImageSchema,
   companyId: {
     type: String,
     required: true,

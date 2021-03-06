@@ -27,6 +27,7 @@ const MainAddForm = (props) => {
   const [current, setCurrent] = useState(0);
   const [formData, setFormData] = useState({});
   const [totalQuantityAndPrice, setTotalQuantityAndPrice] = useState([]);
+  const [image, setImage] = useState(null);
 
   const handleAddAttributeValues = () => {
     setAttributeValueId(attributeValueId + 1);
@@ -35,20 +36,28 @@ const MainAddForm = (props) => {
 
   const handleSubmit = () => {
     form.validateFields().then((values) => {
-      props.addNewProduct({...formData, isActive: props.isActive}).then(() => {
-        props.setIsAddProduct(false);
-        setFormData(false);
-        form.resetFields();
-        setAttributeValueId(0);
-        setAttributeValues([0]);
-        setAttributeSelectOptions([]);
-        setAttributeValueSelectOptions([]);
-        setCurrent(0);
-        setTotalQuantityAndPrice([]);
-      });
+
+      const params = new FormData()
+
+      params.append('image', image)
+      params.append('data', JSON.stringify({ ...formData, isActive: props.isActive }))
+
+      props
+        .addNewProduct(params)
+        .then(() => {
+          props.setIsAddProduct(false);
+          setFormData(false);
+          form.resetFields();
+          setAttributeValueId(0);
+          setAttributeValues([0]);
+          setAttributeSelectOptions([]);
+          setAttributeValueSelectOptions([]);
+          setCurrent(0);
+          setTotalQuantityAndPrice([]);
+        });
     });
   };
-  
+
   const next = (index) => {
     if (typeof index === "number" && current < steps.length) {
       form.validateFields().then((values) => {
@@ -127,7 +136,14 @@ const MainAddForm = (props) => {
 
     {
       title: "Images",
-      content: <ProductImageUploads form={form} {...props} />,
+      content: (
+        <ProductImageUploads
+          image={image}
+          setImage={setImage}
+          form={form}
+          {...props}
+        />
+      ),
       icon: <FileImageOutlined />,
     },
   ];
