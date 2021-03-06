@@ -135,6 +135,7 @@ module.exports.loginCallback = async (req, res) => {
       path: "/",
       httpOnly: true,
       sameSite: false,
+      SameSite: 'None'
       // domain: 'yourshelf.netlify.app'
       
     })
