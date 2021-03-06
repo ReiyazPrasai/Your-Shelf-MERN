@@ -133,9 +133,9 @@ module.exports.loginCallback = async (req, res) => {
     .cookie("Authorization", token, {
       maxAge: 30 * 60 * 1000,
       path: "/",
-      httpOnly: true,
-      sameSite: false,
-      domain: 'yourshelf.netlify.app'
+      httpOnly: false,
+      sameSite: 'Lax',
+      // domain: 'yourshelf.netlify.app'
       
     })
     .send(onSuccess(202, { token: token }));
