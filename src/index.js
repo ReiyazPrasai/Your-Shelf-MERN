@@ -21,7 +21,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <Router history={history}>
         <AuthProvider>
-          <App />
+         Hello
         </AuthProvider>
       </Router>
     </ConnectedRouter>
