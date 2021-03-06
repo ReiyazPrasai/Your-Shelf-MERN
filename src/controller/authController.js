@@ -179,7 +179,7 @@ module.exports.confirmationCallback = async (req, res) => {
         user.isConfirmed = true;
         user.companyId = company._id;
         await user.save();
-        return res.redirect("https://yourshelf-fe.herokuapp.com/");
+        return res.redirect("https://yourshelf.netlify.app/");
       });
     });
   } catch (error) {
@@ -236,7 +236,7 @@ module.exports.resetPasswordRedirectCallback = async (req, res) => {
       if (!user) return res.status(400).send(onFailure(400, "Invalid token"));
 
       return res.redirect(
-        `https://yourshelf-fe.herokuapp.com//#/auth/reset-password/${req.params.token}`
+        `https://yourshelf.netlify.app///#/auth/reset-password/${req.params.token}`
       );
     });
   } catch (error) {

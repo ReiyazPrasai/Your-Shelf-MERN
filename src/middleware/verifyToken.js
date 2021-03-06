@@ -7,12 +7,12 @@ module.exports = (req, res, next) => {
     if (!req.company) {
       const token = req.cookies.Authorization;
       if (!token)
-        return res.redirect(401, "https://yourshelf-fe.herokuapp.com//#/auth/login");
+        return res.redirect(401, "https://yourshelf.netlify.app/#/auth/login");
       const isVerified = jwt.verify(token, process.env.TOKEN_SECRET);
       req.user = isVerified;
     }
     next();
   } catch (err) {
-    res.redirect(401, "https://yourshelf-fe.herokuapp.com//#/auth/login");
+    res.redirect(401, "https://yourshelf.netlify.app/#/auth/login");
   }
 };
