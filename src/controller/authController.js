@@ -137,7 +137,7 @@ module.exports.loginCallback = async (req, res) => {
       maxAge: 2*60 * 60 * 1000,
       path: "/",
       httpOnly: true,
-      sameSite: false,
+      sameSite: "none",
       secure: true,
     })
     .send(onSuccess(202, { token: token }));
