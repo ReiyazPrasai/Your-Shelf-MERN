@@ -132,25 +132,20 @@ module.exports.loginCallback = async (req, res) => {
     });
   
     res
-      .writeHead(200, {
-        "Set-Cookie": `access_token=${token}; HttpOnly; Max-Age=7201; Path=/; SameSite=None; secure=true `,
-      })
-      .send(onSuccess(202, { token: token }));
-  }catch(err){
-    res.status(401).send(onFailure(400, err.message));
-  }
- 
-  res
     .status(202)
     .cookie("access_token", token, {
       maxAge: 2*60 * 60 * 1000,
       path: "/",
       httpOnly: true,
       sameSite: false,
-      SameSite: false,
       secure: true,
     })
     .send(onSuccess(202, { token: token }));
+  }catch(err){
+    res.status(401).send(onFailure(400, err.message));
+  }
+ 
+
 };
 
 module.exports.logoutCallback = async (req, res) => {
