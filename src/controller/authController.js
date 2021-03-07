@@ -131,7 +131,7 @@ module.exports.loginCallback = async (req, res) => {
 
   res
     .writeHead(200, {
-      "Set-Cookie": `access_token=${token}; HttpOnly; Max-Age=7201; Path=/; SameSite=None `,
+      "Set-Cookie": `access_token=${token}; HttpOnly; Max-Age=7201; Path=/; SameSite=None; secure=true `,
     })
     .send(onSuccess(202, { token: token }));
   // res
