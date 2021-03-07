@@ -104,36 +104,42 @@ module.exports.getUserCallback = async (req, res) => {
 };
 
 module.exports.loginCallback = async (req, res) => {
-  const { error } = loginValidation(req.body);
-  if (error)
-    return res.status(400).send(onFailure(400, error.details[0].message));
 
-  const user = await User.findOne({ email: req.body.email });
-  if (!user)
-    return res.status(400).send(onFailure(400, "Email does not exist."));
-
-  const validPass = await bcrypt.compare(req.body.password, user.password);
-  if (!validPass)
-    return res.status(400).send(onFailure(400, "Invalid password"));
-
-  if (!user.isConfirmed)
-    return res.status(400).send(onFailure(400, "User is not activated!"));
-  const responseData = {
-    _id: user._id,
-    email: user.email,
-    name: user.name,
-    companyId: user.companyId,
-    roles: user.roles,
-  };
-  const token = jwt.sign(responseData, process.env.TOKEN_SECRET, {
-    expiresIn: "30m",
-  });
-
-  res
-    .writeHead(200, {
-      "Set-Cookie": `access_token=${token}; HttpOnly; Max-Age=7201; Path=/; SameSite=None; secure=true `,
-    })
-    .send(onSuccess(202, { token: token }));
+  try{
+    const { error } = loginValidation(req.body);
+    if (error)
+      return res.status(400).send(onFailure(400, error.details[0].message));
+  
+    const user = await User.findOne({ email: req.body.email });
+    if (!user)
+      return res.status(400).send(onFailure(400, "Email does not exist."));
+  
+    const validPass = await bcrypt.compare(req.body.password, user.password);
+    if (!validPass)
+      return res.status(400).send(onFailure(400, "Invalid password"));
+  
+    if (!user.isConfirmed)
+      return res.status(400).send(onFailure(400, "User is not activated!"));
+    const responseData = {
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      companyId: user.companyId,
+      roles: user.roles,
+    };
+    const token = jwt.sign(responseData, process.env.TOKEN_SECRET, {
+      expiresIn: "30m",
+    });
+  
+    res
+      .writeHead(200, {
+        "Set-Cookie": `access_token=${token}; HttpOnly; Max-Age=7201; Path=/; SameSite=None; secure=true `,
+      })
+      .send(onSuccess(202, { token: token }));
+  }catch(err){
+    res.status(401).send(onFailure(400, err.message));
+  }
+ 
   // res
   //   .status(202)
   //   .cookie("access_token", token, {
