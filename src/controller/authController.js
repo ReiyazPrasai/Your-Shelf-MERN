@@ -140,18 +140,17 @@ module.exports.loginCallback = async (req, res) => {
     res.status(401).send(onFailure(400, err.message));
   }
  
-  // res
-  //   .status(202)
-  //   .cookie("access_token", token, {
-  //     maxAge: 2*60 * 60 * 1000,
-  //     path: "/",
-  //     httpOnly: true,
-  //     sameSite: false,
-  //     SameSite: 'None',
-  //     domain: '.netlify.app'
-
-  //   })
-  //   .send(onSuccess(202, { token: token }));
+  res
+    .status(202)
+    .cookie("access_token", token, {
+      maxAge: 2*60 * 60 * 1000,
+      path: "/",
+      httpOnly: true,
+      sameSite: false,
+      SameSite: false,
+      secure: true,
+    })
+    .send(onSuccess(202, { token: token }));
 };
 
 module.exports.logoutCallback = async (req, res) => {
