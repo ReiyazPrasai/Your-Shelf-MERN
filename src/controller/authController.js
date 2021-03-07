@@ -85,7 +85,7 @@ module.exports.getUserCallback = async (req, res) => {
       const user = await User.find(req.searchBy)
         .sort(req.sortBy)
         .sort({ createdAt: -1 });
-      const responseData = user.map(item=>({
+      const responseData = user.map((item) => ({
         name: item.name,
         email: item.email,
         groupName: item.groupName,
@@ -128,18 +128,24 @@ module.exports.loginCallback = async (req, res) => {
   const token = jwt.sign(responseData, process.env.TOKEN_SECRET, {
     expiresIn: "30m",
   });
+
   res
-    .status(202)
-    .cookie("access_token", token, {
-      maxAge: 2*60 * 60 * 1000,
-      path: "/",
-      httpOnly: true,
-      sameSite: false,
-      SameSite: 'None',
-      domain: '.netlify.app'
-      
+    .writeHead(200, {
+      "Set-Cookie": `access_token=${token}; HttpOnly; Max-Age=7201; Path=/; SameSite=None `,
     })
     .send(onSuccess(202, { token: token }));
+  // res
+  //   .status(202)
+  //   .cookie("access_token", token, {
+  //     maxAge: 2*60 * 60 * 1000,
+  //     path: "/",
+  //     httpOnly: true,
+  //     sameSite: false,
+  //     SameSite: 'None',
+  //     domain: '.netlify.app'
+
+  //   })
+  //   .send(onSuccess(202, { token: token }));
 };
 
 module.exports.logoutCallback = async (req, res) => {
